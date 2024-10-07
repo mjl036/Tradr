@@ -1,15 +1,20 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
-  return (
+  const router = useRouter();
+  return ( 
     <View
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "blue",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>This is the Index Screen.</Text>
+      <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
     </View>
+    
   );
 }

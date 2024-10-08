@@ -1,7 +1,7 @@
 import { Text, View, Button } from "react-native";
 import { useRouter } from "expo-router";
 import React from 'react';
-import { SafeAreaView, Button, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { useColorScheme } from 'react-native';
 
 function MyComponent() {

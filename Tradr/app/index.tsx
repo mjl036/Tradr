@@ -9,7 +9,7 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "blue",
+        backgroundColor: useColorScheme,
       }}
     >
       <Text>This is the Index/Home Screen.</Text>

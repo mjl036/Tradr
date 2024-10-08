@@ -12,6 +12,7 @@ export default function messageBoard() {
     >
       <Text>This Should become the settings tab.</Text>
       <Button title="Go to Account Info" onPress={() => router.push("/accountInfo")} />
+      <Button title="Switch UI Mode (Dark/Light)" onPress={() => alert('You pressed a button.')} />
     </View>
   );
 }

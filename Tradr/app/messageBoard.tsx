@@ -1,5 +1,7 @@
 import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 export default function messageBoard() {
     const router = useRouter();
     return (

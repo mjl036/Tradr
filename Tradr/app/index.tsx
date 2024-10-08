@@ -15,6 +15,7 @@ export default function Index() {
       <Text>This is the Index/Home Screen.</Text>
       <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
       <Button title="Go to Sign In" onPress={() => router.push("/signIn")} />
+      <Button title="Go to Settings" onPress={() => router.push("/settings")} />
     </View>
     
   );

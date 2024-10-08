@@ -10,7 +10,7 @@ export default function messageBoard() {
         alignItems: "center",
       }}
     >
-      <Text>This Should become Sign In scree.</Text>
+      <Text>This Should become Sign In screen.</Text>
     </View>
   );
 }

@@ -12,8 +12,9 @@ export default function Index() {
         backgroundColor: "blue",
       }}
     >
-      <Text>This is the Index Screen.</Text>
+      <Text>This is the Index/Home Screen.</Text>
       <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
+      <Button title="Go to Sign In" onPress={() => router.push("/signIn")} />
     </View>
     
   );

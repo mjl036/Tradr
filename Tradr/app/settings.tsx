@@ -3,9 +3,6 @@ import { useRouter } from "expo-router";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const THEME_KEY = '@app_theme';
 
 function MyComponent() {
   const systemColorScheme = useColorScheme();

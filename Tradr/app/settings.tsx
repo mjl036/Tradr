@@ -23,6 +23,27 @@ function MyComponent() {
     </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  lightContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  darkContainer: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightText: {
+    color: 'black',
+  },
+  darkText: {
+    color: 'white',
+  },
+});
+
 export default MyComponent;
 
 

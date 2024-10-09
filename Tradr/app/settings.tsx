@@ -47,8 +47,8 @@ export default MyComponent;
 
 
 export default function messageBoard() {
-    const router = useRouter();
-    return (
+  const router = useRouter();
+  return (
     <View
       style={{
         flex: 1,

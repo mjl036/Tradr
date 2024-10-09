@@ -1,4 +1,6 @@
 import { Stack } from "expo-router";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Drawer } from 'expo-router/drawer';
 
 export default function RootLayout() {
   return (
@@ -8,6 +10,8 @@ export default function RootLayout() {
       <Stack.Screen name="signIn" options={{ title: "Sign In" }} />
       <Stack.Screen name="settings" options={{ title: "Settings" }} />
       <Stack.Screen name="accountInfo" options={{ title: "Account Information" }} />
+      <Stack.Screen name="listing" options={{ title: "Create Listing" }} />
     </Stack>
   );
 }
+

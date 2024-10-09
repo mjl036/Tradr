@@ -1,8 +1,15 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 import { useRouter } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+
 export default function messageBoard() {
-    const router = useRouter();
-    return (
+  const router = useRouter();
+
+
+
+
+  return (
     <View
       style={{
         flex: 1,
@@ -10,7 +17,8 @@ export default function messageBoard() {
         alignItems: "center",
       }}
     >
-      <Text>this should be the message board.</Text>
+      <Text>this is the message board.</Text>
+      <Button title="List a card" onPress={() => router.push("/listing")} />
     </View>
   );
 }

@@ -1,8 +1,8 @@
 import { Text, View } from "react-native";
 import { useRouter } from "expo-router";
 export default function messageBoard() {
-    const router = useRouter();
-    return (
+  const router = useRouter();
+  return (
     <View
       style={{
         flex: 1,

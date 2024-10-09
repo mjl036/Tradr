@@ -4,12 +4,12 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 
 export default function messageBoard() {
-    const router = useRouter();
-    
-    
-    
-    
-    return (
+  const router = useRouter();
+
+
+
+
+  return (
     <View
       style={{
         flex: 1,
@@ -18,7 +18,7 @@ export default function messageBoard() {
       }}
     >
       <Text>this is the message board.</Text>
-      <Button title="List a card" onPress={() => router.push("/listing")}/>
+      <Button title="List a card" onPress={() => router.push("/listing")} />
     </View>
   );
 }

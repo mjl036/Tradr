@@ -5,7 +5,7 @@ import { Link, Stack } from 'expo-router';
 
 export default function Index() {
   const router = useRouter();
-  return ( 
+  return (
     <View
       style={{
         flex: 1,
@@ -16,12 +16,12 @@ export default function Index() {
     >
       <Text>This was the Index/Home Screen.</Text>
       <View
-      style={{
-        flex: 1,
-        
-      }}
+        style={{
+          flex: 1,
+
+        }}
       >
-         
+
       </View>
       <View
         style={{
@@ -31,11 +31,11 @@ export default function Index() {
           backgroundColor: "black,"
         }}
       >
-      <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")}/>
-      <Button title="Go to Sign In" onPress={() => router.push("/signIn")} />
-      <Button title="Go to Settings" onPress={() => router.push("/settings")} />
+        <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
+        <Button title="Go to Sign In" onPress={() => router.push("/signIn")} />
+        <Button title="Go to Settings" onPress={() => router.push("/settings")} />
       </View>
     </View>
-    
+
   );
 }

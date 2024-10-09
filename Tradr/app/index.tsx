@@ -1,5 +1,7 @@
-import { Text, View, Button } from "react-native";
+import { Text, StyleSheet, View, Button, Appearance, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
+import { Link, Stack } from 'expo-router';
+
 
 export default function Index() {
   const router = useRouter();
@@ -9,11 +11,30 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "blue",
+        backgroundColor: useColorScheme,
       }}
     >
-      <Text>This is the Index Screen.</Text>
-      <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
+      <Text>This was the Index/Home Screen.</Text>
+      <View
+      style={{
+        flex: 1,
+        
+      }}
+      >
+         
+      </View>
+      <View
+        style={{
+          flex: 1,
+          width: "80%",
+          height: "80%",
+          backgroundColor: "black,"
+        }}
+      >
+      <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")}/>
+      <Button title="Go to Sign In" onPress={() => router.push("/signIn")} />
+      <Button title="Go to Settings" onPress={() => router.push("/settings")} />
+      </View>
     </View>
     
   );

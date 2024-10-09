@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "760449925320",
+    "project_id": "tradr-app-c2b3a",
+    "storage_bucket": "tradr-app-c2b3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760449925320:android:887521e56dc0247168e5fd",
+        "android_client_info": {
+          "package_name": "com.ScProj.TradrApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWjYc_1N3QfTCJ3pPdGGKcyw2BI_aLoFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

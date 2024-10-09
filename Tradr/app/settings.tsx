@@ -3,7 +3,9 @@ import { useRouter } from "expo-router";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 
+// Stuff for dark and light mode button
 function MyComponent() {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
@@ -17,10 +19,21 @@ function MyComponent() {
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Hello, World!
       </Text>
-      <Button title="Toggle Dark Mode" onPress={toggleTheme} />
+      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
     </SafeAreaView>
   );
 }
+
+// Stuff for the font selection drop down
+const [selectedLanguage, setSelectedLanguage] = useState();
+<Picker
+  selectedValue={selectedLanguage}
+  onValueChange={(itemValue, itemIndex) =>
+    setSelectedLanguage(itemValue)
+  }>
+  <Picker.Item label="Java" value="java" />
+  <Picker.Item label="JavaScript" value="js" />
+</Picker>
 
 const styles = StyleSheet.create({
   lightContainer: {

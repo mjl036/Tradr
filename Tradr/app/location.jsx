@@ -8,9 +8,9 @@ const getLocation = () => {
     const [latitude, setLatitude] = useState("");
 
     const getDeviceLocation = async () => { //async helps with handling fetch and data operations 
-        let { status } = await Location.requestForegroundPermissionsAsync();
+        let { status } = await Location.requestForegroundPermissionsAsync(); 
 
-        if (status !== "granted") {
+        if (status !=="granted") {
             setErrorMsg("Location permissions not granted. Please allow access to Location."); //Error handling 
             return;
         }
@@ -22,7 +22,7 @@ const getLocation = () => {
             console.log("latitude and longitude is", latitude, longitude);
             setLatitude(latitude); //used to set our state variables with the recieved coords
             setLongitude(longitude);
-            let response = await Location.reverseGeocodeAsync({ latitude, longitude }); // expo api to turn coords into things such as city state country etc. 
+            let response = await Location.reverseGeocodeAsync({latitude,longitude}); // expo api to turn coords into things such as city state country etc. 
 
             console.log("Location is", response);
         }

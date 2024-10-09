@@ -11,21 +11,8 @@ function MyComponent() {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
 
-  useEffect(() => {
-    const loadTheme = async () => {
-      const savedTheme = await AsyncStorage.getItem(THEME_KEY);
-      if (savedTheme) {
-        setTheme(savedTheme as 'light' | 'dark');
-      }
-    };
-
-    loadTheme();
-  }, []);
-
-  const toggleTheme = async () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    await AsyncStorage.setItem(THEME_KEY, newTheme);
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
@@ -33,7 +20,7 @@ function MyComponent() {
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Hello, World!
       </Text>
-      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
+      <Button title="Toggle Dark Mode" onPress={toggleTheme} />
     </SafeAreaView>
   );
 }

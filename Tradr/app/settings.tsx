@@ -23,39 +23,6 @@ function MyComponent() {
     </SafeAreaView>
   );
 }
-
-// Stuff for the font selection drop down
-const [selectedLanguage, setSelectedLanguage] = useState();
-<Picker
-  selectedValue={selectedLanguage}
-  onValueChange={(itemValue, itemIndex) =>
-    setSelectedLanguage(itemValue)
-  }>
-  <Picker.Item label="Java" value="java" />
-  <Picker.Item label="JavaScript" value="js" />
-</Picker>
-
-const styles = StyleSheet.create({
-  lightContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  darkContainer: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  lightText: {
-    color: 'black',
-  },
-  darkText: {
-    color: 'white',
-  },
-});
-
 export default MyComponent;
 
 

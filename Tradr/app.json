@@ -31,6 +31,20 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "locationPlugins": [
+      {
+        "expo": {
+          "plugins": [
+            [
+              "expo-location",
+              {
+                "locationAlwaysAndWhenInUsePermission": "Allow Tradr to use your location."
+              }
+            ]
+          ]
+        }
+      }
+    ]
   }
 }

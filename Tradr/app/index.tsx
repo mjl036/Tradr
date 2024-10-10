@@ -2,17 +2,31 @@ import { Text, StyleSheet, View, Button, Appearance, useColorScheme } from "reac
 import { useRouter } from "expo-router";
 import { Link, Stack } from 'expo-router';
 import getLocation from './location';
+import { useColorScheme } from 'react-native';
+
+useColorScheme() = systemColorScheme
 
 export default function Index() {
   const router = useRouter();
   const { longitude, latitude, errorMsg } = getLocation();
   return (
+    <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
+      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
+        Hello, World!
+      </Text>
+      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
+    </SafeAreaView>
+  );
+  return (
     <View
+    
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: useColorScheme,
+
+        
       }}
     >
       <Text>This was the Index/Home Screen.</Text>

@@ -20,7 +20,7 @@ const handleLogin = async () => {
       const response = await signInWithEmailAndPassword(auth, email, password)
       console.log(response)
       if(response.user) {
-        router.push("/loginScreen");
+        router.push("/accountInfo");
       }
     } catch (e: any) {
       console.log(e)

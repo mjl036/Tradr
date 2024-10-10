@@ -1,21 +1,53 @@
 import React, { useState } from 'react'
-import { Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
-import { auth } from '../firebase'
+import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
+import { useRouter } from 'expo-router';
+//import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+//import auth from '@react-native-firebase/auth'
+//import db from '@react-native-firebase/database'
 
 const loginScreen = () => {
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 
-/*const handleSignUp = () => {
-  auth
-    .createUserWithEmailAndPassword(email, password)
-    .then(userCredentials => {
-      const user = userCredentials.user;
-      console.log(user.email);
-    })
-    .catch(error => alert(error.message))
+//const nav = useNavigation<NativeStackNavigationProp<any>>();
+const router = useRouter();
+
+const handleLogin = async () => {
+  if (email && password) {
+    try{
+      const response = await auth().signInWithEmailAndPassword(
+        email,
+        password
+      )
+
+      if(response.user) {
+        router.push("/loginScreen");
+      }
+    } catch (e) {
+      Alert.alert("Oops", "Pplease check your form and try again")
+    }
+  }
 }
-*/
+
+const handleSignUp = async () => {
+  if (email && password) {
+    try {
+      const response = await auth().createUserWithEmailAndPassword(
+        email,
+        password
+      )
+
+      if(response.user) {
+        router.push("/loginScreen")
+      }
+
+
+    } catch (e) {
+      Alert.alert("Oops", "Please check your form and try again")
+    }
+  }
+}
+
     return (
         <KeyboardAvoidingView
             style={styles.container}

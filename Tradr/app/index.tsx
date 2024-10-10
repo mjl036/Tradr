@@ -35,6 +35,7 @@ export default function Index() {
         <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
         <Button title="Go to Log In" onPress={() => router.push("/loginScreen")} />
         <Button title="Go to Settings" onPress={() => router.push("/settings")} />
+        <Button title="Create Listing" onPress={() => router.push("/listing")} />
       </View>
     </View>
 

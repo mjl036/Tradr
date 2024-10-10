@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router';
+import { FIREBASE_AUTH } from '@/firebase.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-//import auth from '@react-native-firebase/auth'
-//import db from '@react-native-firebase/database'
 
 const loginScreen = () => {
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
+//const [loading, setLoading] = useState(false)
+const auth = FIREBASE_AUTH;
 
 //const nav = useNavigation<NativeStackNavigationProp<any>>();
 const router = useRouter();
@@ -15,16 +17,14 @@ const router = useRouter();
 const handleLogin = async () => {
   if (email && password) {
     try{
-      const response = await auth().signInWithEmailAndPassword(
-        email,
-        password
-      )
-
+      const response = await signInWithEmailAndPassword(auth, email, password)
+      console.log(response)
       if(response.user) {
         router.push("/loginScreen");
       }
-    } catch (e) {
-      Alert.alert("Oops", "Pplease check your form and try again")
+    } catch (e: any) {
+      console.log(e)
+      Alert.alert('Login failed', e.message)
     }
   }
 }
@@ -32,18 +32,15 @@ const handleLogin = async () => {
 const handleSignUp = async () => {
   if (email && password) {
     try {
-      const response = await auth().createUserWithEmailAndPassword(
-        email,
-        password
-      )
-
+      const response = await createUserWithEmailAndPassword(auth, email, password)
+      console.log(response)
       if(response.user) {
         router.push("/loginScreen")
       }
 
-
-    } catch (e) {
-      Alert.alert("Oops", "Please check your form and try again")
+    } catch (e: any) {
+      console.log(e)
+      Alert.alert('Registration failed', e.message)
     }
   }
 }
@@ -71,13 +68,13 @@ const handleSignUp = async () => {
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity
-                onPress={() => { }}
+                onPress={handleLogin}
                 style={styles.button}
               >
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
               <TouchableOpacity
-              onPress={() => { }}
+              onPress={handleSignUp}
               style={[styles.button, styles.buttonOutline]}
             >
               <Text style={styles.buttonOutlineText}>Register</Text>

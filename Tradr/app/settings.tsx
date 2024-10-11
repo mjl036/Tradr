@@ -15,7 +15,7 @@ function MyComponent() {
   return (
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Hello, World!
+        Example Text
       </Text>
       <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
     </SafeAreaView>

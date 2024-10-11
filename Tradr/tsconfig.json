@@ -13,6 +13,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "app/chat.js"
+    "app/chat.js",
+    "app/index.tsx"
   ]
 }

@@ -2,7 +2,6 @@ import { Text, StyleSheet, View, Button, Appearance, useColorScheme } from "reac
 import { useRouter } from "expo-router";
 import { Link, Stack } from 'expo-router';
 import getLocation from './location';
-import { useColorScheme } from 'react-native';
 import MyComponent from './settings';
 
 MyComponent();

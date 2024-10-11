@@ -14,14 +14,6 @@ function MyComponent() {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
-  return (
-    <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
-      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Example Text
-      </Text>
-      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
-    </SafeAreaView>
-  );
 }
 
 const styles = StyleSheet.create({

@@ -3,8 +3,9 @@ import { useRouter } from "expo-router";
 import { Link, Stack } from 'expo-router';
 import getLocation from './location';
 import { useColorScheme } from 'react-native';
+import MyComponent from './settings';
 
-useColorScheme() = systemColorScheme
+MyComponent();
 
 export default function Index() {
   const router = useRouter();

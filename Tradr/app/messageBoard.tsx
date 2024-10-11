@@ -1,24 +1,16 @@
-import { Text, View, Button } from "react-native";
+import { Text, View, Button, SafeAreaView, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import React from 'react';
+import Chat from '../chat'
 
 
-export default function messageBoard() {
-  const router = useRouter();
-
-
-
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>this is the message board.</Text>
-      <Button title="List a card" onPress={() => router.push("/listing")} />
-    </View>
-  );
+const messageBoard = () => {
+    return (
+        <SafeAreaView style={{ flex: 1, }}>
+            <Chat user={{ _id: 1 }} />
+        </SafeAreaView>
+    );
 }
+export default messageBoard;
+

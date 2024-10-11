@@ -4,21 +4,21 @@ import { Link, Stack } from 'expo-router';
 import getLocation from './location';
 import MyComponent from './settings';
 
-MyComponent();
+<MyComponent />
 
 export default function Index() {
   const router = useRouter();
   const { longitude, latitude, errorMsg } = getLocation();
   return (
     <View
-    
+
       style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: useColorScheme,
 
-        
+
       }}
     >
       <Text>This was the Index/Home Screen.</Text>

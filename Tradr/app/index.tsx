@@ -4,7 +4,6 @@ import { Link, Stack } from 'expo-router';
 import getLocation from './location';
 import MyComponent from './settings';
 
-//MyComponent();
 import Swiper from 'react-native-deck-swiper';
 import data from './placeholderimage';
 import React from 'react'

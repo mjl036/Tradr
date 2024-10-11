@@ -3,6 +3,8 @@ import { useRouter } from "expo-router";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 function MyComponent() {
   const systemColorScheme = useColorScheme();
@@ -15,9 +17,9 @@ function MyComponent() {
   return (
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Hello, World!
+        Example Text
       </Text>
-      <Button title="Toggle Dark Mode" onPress={toggleTheme} />
+      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
     </SafeAreaView>
   );
 }

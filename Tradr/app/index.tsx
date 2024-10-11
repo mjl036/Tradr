@@ -4,7 +4,7 @@ import { Link, Stack } from 'expo-router';
 import getLocation from './location';
 import MyComponent from './settings';
 
-MyComponent();
+//MyComponent();
 import Swiper from 'react-native-deck-swiper';
 import data from './placeholderimage';
 import React from 'react'
@@ -104,10 +104,10 @@ export default function Index() {
             height: "80%",
           }}
         >
+          <Button title="Go to Sign In" onPress={() => router.push("/loginScreen")} />
           <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
-          <Button title="Go to Sign In" onPress={() => router.push("/signIn")} />
-          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
           <Button title="Create Listing" onPress={() => router.push("/listing")} />
+          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
         </View>
       </>
     </View>

@@ -8,22 +8,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fire
 
 const { height } = Dimensions.get('window');
 // Chat Code Help https://medium.com/@huzefaabbasi6/how-to-create-a-chat-ui-in-react-native-using-gifted-chat-51fe05a9e6de
-const [messages, setMessages] = useState([]);
 
-useEffect(() => {
-    setMessages([
-        {
-            _id: 1,
-            text: 'Hello',
-            createdAt: new Date(),
-            user: {
-                _id: 2,
-                name: 'React Native',
-                avatar: 'https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FTheLizard1728601289436?alt=media&token=42652af2-d919-43ed-8a90-74401e1bdb5e',
-            },
-        },
-    ])
-}, []);
+
 const Chat = ({ user }) => {
     const onSend = useCallback((messages = []) => {
         setMessages((previousMessages) =>
@@ -31,10 +17,27 @@ const Chat = ({ user }) => {
         );
     }, []);
 
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        setMessages([
+            {
+                _id: 1,
+                text: 'Hello',
+                createdAt: new Date(),
+                user: {
+                    _id: 2,
+                    name: 'React Native',
+                    avatar: 'https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FTheLizard1728601289436?alt=media&token=42652af2-d919-43ed-8a90-74401e1bdb5e',
+                },
+            },
+        ])
+    }, []);
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.heading}>Chat with AI</Text>
+                <Text style={styles.heading}>Text User Chat</Text>
             </View>
 
             <GiftedChat
@@ -59,7 +62,7 @@ const renderInputToolBar = (props) => {
             {...props}
             containerStyle={{
                 borderRadius: 16,
-                backgroundColor: "#f2f8fc",
+                backgroundColor: "white",
                 marginHorizontal: 8,
                 marginTop: 5,
                 borderTopWidth: 0,
@@ -84,10 +87,10 @@ const renderBubble = (props) => {
             {...props}
             wrapperStyle={{
                 left: {
-                    backgroundColor: "#f2f8fc",
+                    backgroundColor: "lightgrey",
                 },
                 right: {
-                    backgroundColor: "#0075FD",
+                    backgroundColor: "blue",
                 },
             }}
         />
@@ -97,20 +100,23 @@ const renderBubble = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "lightblue",
     },
     header: {
-        paddingTop: height * 0.07,
+        paddingTop: height * 0.02,
         flexDirection: "row",
-        paddingHorizontal: 8,
+        paddingHorizontal: 2,
         borderBottomWidth: 1,
-        borderBottomColor: "#DDDDDD",
-        paddingVertical: 8,
-        backgroundColor: "#f2f8fc",
+        borderBottomColor: "black",
+        paddingVertical: 2,
+        backgroundColor: "lightgrey",
+        alignSelf: 'center',
+        width: '100%',
     },
     heading: {
         fontWeight: "500",
-        paddingLeft: 16,
+        paddingLeft: '16',
+        alignSelf: 'center',
         fontSize: 20,
     },
 });

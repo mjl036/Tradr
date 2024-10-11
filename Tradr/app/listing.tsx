@@ -67,22 +67,25 @@ export default function listing() {
   }
   return (
     <View style={styles.container}>
-      <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'red' }}>
+      <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
         {image && <Image source={{ uri: image }} style={styles.image} />}
+
       </View>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
+
 
       <TextInput
-        style={{ height: 40, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 24 }}
+        style={{ height: 40, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 24, marginTop: 10 }}
         onChangeText={setTitleChange}
         value={title}
         placeholder="Enter Title"
       />
       <TextInput
-        style={{ height: 120, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 12 }}
+        style={{ height: 120, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 12, textAlignVertical: 'top', marginTop: 10 }}
         onChangeText={setDescription}
         value={description}
         placeholder="Enter Description"
+        multiline={true}
       />
       <Button
         title="submit"
@@ -104,11 +107,12 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: 'black',
     alignSelf: 'center',
-    backgroundColor: 'blue'
+    backgroundColor: 'lightblue'
   },
   image: {
     width: '100%',
     height: '100%',
+    flex: 1,
     alignSelf: 'auto',
     borderWidth: 5,
     borderColor: 'black',

@@ -10,14 +10,6 @@ export default function Index() {
   const router = useRouter();
   const { longitude, latitude, errorMsg } = getLocation();
   return (
-    <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
-      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Example Text
-      </Text>
-      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
-    </SafeAreaView>
-  );
-  return (
     <View
     
       style={{

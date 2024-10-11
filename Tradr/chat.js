@@ -19,11 +19,12 @@ const Chat = ({ user }) => {
 
     const [messages, setMessages] = useState([]);
 
+    // Example Sent Message to be formmated later with account info
     useEffect(() => {
         setMessages([
             {
                 _id: 1,
-                text: 'Hello',
+                text: 'Do you want to exchange cards?',
                 createdAt: new Date(),
                 user: {
                     _id: 2,
@@ -37,17 +38,15 @@ const Chat = ({ user }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.heading}>Text User Chat</Text>
+                <Text style={styles.heading}>Username Here: Offering: Card Title</Text>
             </View>
 
             <GiftedChat
                 messages={messages}
                 onSend={(messages) => onSend(messages)}
-                user={{
-                    _id: user._id,
-                }}
+                user={{ _id: user._id, }}
                 renderAvatar={null}
-                renderUsernameOnMessage={false}
+                renderUsernameOnMessage={true}
                 renderBubble={renderBubble}
                 renderInputToolbar={renderInputToolBar}
                 renderSend={renderSend}

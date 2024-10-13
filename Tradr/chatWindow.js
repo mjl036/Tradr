@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { GiftedChat, Bubble, InputToolbar, Send } from "react-native-gifted-chat";
 import { FIREBASE_AUTH } from '@/firebase.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { getAuth } from "firebase/auth";
 const { windowHeight } = Dimensions.get('window');
 
 const ChatWindow = ({ user, target }) => {

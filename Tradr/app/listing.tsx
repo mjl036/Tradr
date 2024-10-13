@@ -47,18 +47,20 @@ export default function listing() {
 
     var user = auth.currentUser;
     var userID = await user?.getIdToken();
+    var userEmail = user?.email;
+    var emailDatabaseName = `${userEmail?.replace(/#|.|-|_|\s+|@|'.com'/g, '')}`  // Note to self, change user Email for username to simplify things
     alert(userID);
 
     const response = await fetch(image);
     const blob = await response.blob();
-    const imageFileName = `${title}`;
-    const storageRef = ref(FIREBASE_STORAGE, `images/${imageFileName}`)  // title.replace(/\s+/g, '')}${Date.now(); this is name scheme, currently testing
+    const imageFileName = `${title}`; // title.replace(/\s+/g, '')}${Date.now(); this is name scheme, currently testing with simple name as to link it to an account instead
+    const storageRef = ref(FIREBASE_STORAGE, `images/${imageFileName}`);
     const db = getDatabase();
-    const listingRef = dbRef(db, 'listings/' + imageFileName)
+    const listingRef = dbRef(db, `users/${emailDatabaseName}/listings/` + imageFileName);
 
 
-    await uploadBytes(storageRef, blob,)
-    const imageUrl = await getDownloadURL(storageRef)
+    await uploadBytes(storageRef, blob,);
+    const imageUrl = await getDownloadURL(storageRef);
     const cardData = { userID, title, description, imageUrl };
     resetFields();
     await set(listingRef, cardData);

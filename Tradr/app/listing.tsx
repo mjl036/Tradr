@@ -6,20 +6,16 @@ import * as ImagePicker from 'expo-image-picker';
 import { FIREBASE_STORAGE } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
+import { getAuth } from "firebase/auth";
 
 export default function listing() {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<string | null>(null);
+  const [userID, setUserID] = useState('');
+  const auth = getAuth();
 
-  const setTitleChange = (input) => {
-    setTitle(input);
-  }
-
-  const setDescriptionChange = (input) => {
-    setDescription(input);
-  }
 
 
   // Example code from https://docs.expo.dev/versions/latest/sdk/imagepicker
@@ -37,34 +33,40 @@ export default function listing() {
     }
   };
 
+  const resetFields = () => {
+    setTitle('');
+    setDescription('');
+    setImage(null);
+  }
+
   const handleSubmit = async () => {
     if (!image || !title || !description) {
       alert('Missing Image, Title, or Description');
       return;
     }
 
-    try {
-      const response = await fetch(image);
-      const blob = await response.blob();
-      const imageFileName = `${title.replace(/\s+/g, '')}${Date.now()}`;
-      const storageRef = ref(FIREBASE_STORAGE, `images/${imageFileName}`)
-      const db = getDatabase();
-      const listingRef = dbRef(db, 'listings/' + imageFileName)
+    var user = auth.currentUser;
+    var userID = await user?.getIdToken();
+    alert(userID);
 
-      await uploadBytes(storageRef, blob,)
-      const imageUrl = await getDownloadURL(storageRef)
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const imageFileName = `${title}`;
+    const storageRef = ref(FIREBASE_STORAGE, `images/${imageFileName}`)  // title.replace(/\s+/g, '')}${Date.now(); this is name scheme, currently testing
+    const db = getDatabase();
+    const listingRef = dbRef(db, 'listings/' + imageFileName)
 
-      const cardData = { title, description, imageUrl, };
 
-      await set(listingRef, cardData);
-      setTitle('');
-      setDescription('');
-      setImage(null);
-      alert('Listing submitted successfully!');
-    } catch (error) {
-      console.error("Upload Failed:", error);
-    }
+    await uploadBytes(storageRef, blob,)
+    const imageUrl = await getDownloadURL(storageRef)
+    const cardData = { userID, title, description, imageUrl };
+    resetFields();
+    await set(listingRef, cardData);
+
+    alert('Listing submitted!');
+    router.push("../");
   }
+
   return (
     <View style={styles.container}>
       <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
@@ -76,10 +78,11 @@ export default function listing() {
 
       <TextInput
         style={{ height: 40, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 24, marginTop: 10 }}
-        onChangeText={setTitleChange}
+        onChangeText={setTitle}
         value={title}
         placeholder="Enter Title"
       />
+
       <TextInput
         style={{ height: 120, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 12, textAlignVertical: 'top', marginTop: 10 }}
         onChangeText={setDescription}
@@ -87,6 +90,7 @@ export default function listing() {
         placeholder="Enter Description"
         multiline={true}
       />
+
       <Button
         title="submit"
         onPress={handleSubmit}
@@ -117,12 +121,6 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: 'black',
   },
-  button: {
-    width: 20,
-    height: 20,
-    backgroundColor: 'white',
-  }
-
 });
 
 

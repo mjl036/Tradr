@@ -76,17 +76,7 @@ export default function Index() {
         }}
         r />
       <>
-        <View
-
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: useColorScheme,
-
-
-          }}
-        >
+        <View>
           <Text>This was the Index/Home Screen.</Text>
         </View>
         <View

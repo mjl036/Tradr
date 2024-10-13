@@ -7,10 +7,16 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fire
 const { windowHeight } = Dimensions.get('window');
 
 const ChatWindow = ({ user, target }) => {
-
     const [messages, setMessages] = useState([]);
     const [senderID, setSenderID] = useState(null);
     const [recieverID, setRecieverID] = useState(null);
+    const auth = getAuth();
+
+    const GetUser = async () => {
+        var user = auth.currentUser;
+        var userID = await user?.getIdToken();
+    }
+
     // Notes to self for future implementation
     // Assaign ID when account is created so its always accessable
     // Assign name to email, or whatever user changes it to in settings

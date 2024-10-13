@@ -3,10 +3,9 @@ import { useRouter } from "expo-router";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-function MyComponent() {
+// This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
+function darkModeUI() {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
 
@@ -23,7 +22,7 @@ function MyComponent() {
     </SafeAreaView>
   );
 }
-
+// This is the style sheet for the dark and light modes (above), so don't touch really
 const styles = StyleSheet.create({
   lightContainer: {
     flex: 1,
@@ -45,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyComponent;
+export default darkModeUI;

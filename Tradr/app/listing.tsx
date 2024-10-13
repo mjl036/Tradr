@@ -48,7 +48,7 @@ export default function listing() {
     var user = auth.currentUser;
     var userID = await user?.getIdToken();
     var userEmail = user?.email;
-    var emailDatabaseName = `${userEmail?.replace(/#|.|-|_|\s+|@|'.com'/g, '')}`  // Note to self, change user Email for username to simplify things
+    var emailDatabaseName = `${userEmail?.replace('.', '')}`;  // Note to self, change user Email for username to
     alert(userID);
 
     const response = await fetch(image);

@@ -7,6 +7,7 @@ import { FIREBASE_STORAGE } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 export default function listing() {
   const router = useRouter();
@@ -18,14 +19,29 @@ export default function listing() {
 
 
 
-  // Example code from https://docs.expo.dev/versions/latest/sdk/imagepicker
+  // documentation https://docs.expo.dev/versions/latest/sdk/imagepicker
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      allowsMultipleSelection: false,
+      cameraType: ImagePicker.CameraType.front,
       aspect: [9, 16],
-      quality: 1,
+      quality: .1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+  const takePicture = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      allowsMultipleSelection: false,
+      cameraType: ImagePicker.CameraType.front,
+      aspect: [9, 16],
+      quality: .1,
     });
 
     if (!result.canceled) {
@@ -49,7 +65,11 @@ export default function listing() {
     var userID = await user?.getIdToken();
     var userEmail = user?.email;
     var emailDatabaseName = `${userEmail?.replace('.', '')}`;  // Note to self, change user Email for username to
-    alert(userID);
+
+    if (userID == null) {
+      alert('Not Logged In, cant submit');
+      return;
+    }
 
     const response = await fetch(image);
     const blob = await response.blob();
@@ -73,6 +93,7 @@ export default function listing() {
     <View style={styles.container}>
       <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
         <Button title="Pick an image from camera roll" onPress={pickImage} />
+        <Button title="Take a picture" onPress={takePicture} />
         {image && <Image source={{ uri: image }} style={styles.image} />}
 
       </View>

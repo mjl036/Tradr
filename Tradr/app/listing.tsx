@@ -25,9 +25,8 @@ export default function listing() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       allowsMultipleSelection: false,
-      cameraType: ImagePicker.CameraType.front,
       aspect: [9, 16],
-      quality: .1,
+      quality: 1,
     });
 
     if (!result.canceled) {
@@ -41,7 +40,7 @@ export default function listing() {
       allowsMultipleSelection: false,
       cameraType: ImagePicker.CameraType.front,
       aspect: [9, 16],
-      quality: .1,
+      quality: 1,
     });
 
     if (!result.canceled) {

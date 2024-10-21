@@ -3,10 +3,12 @@ import { useRouter } from "expo-router";
 import { Link, Stack } from 'expo-router';
 import getLocation from './location';
 import MyComponent from './settings';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import Swiper from 'react-native-deck-swiper';
 import data from './placeholderimage';
 import React from 'react'
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
@@ -75,30 +77,27 @@ export default function Index() {
         }}
         r />
       <>
-        <View>
-          <Text>This was the Index/Home Screen.</Text>
-        </View>
         <View
-          style={{
+          style={{ //Maybe also button styles i didnt write these someone please verify that wrote it 
             flex: 1,
           }}
         >
 
         </View>
         <View
-          style={{
-            flex: 1,
-            width: "80%",
-            height: "80%",
+          style={{ //Button styles 
+            flex: 0,
+            width: "13%",
+            height: "22%",
           }}
         >
-          <Button title="Go to Sign In" onPress={() => router.push("/loginScreen")} />
-          <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
-          <Button title="Create Listing" onPress={() => router.push("/listing")} />
-          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
-        </View>
+          <Ionicons.Button name="person-outline" onPress={() => router.push("/loginScreen")} /> 
+          <Ionicons.Button name="paper-plane-outline" onPress={() => router.push("/messageBoard")} />
+          <Ionicons.Button name="bookmarks-outline" onPress={() => router.push("/listing")} />
+          <Ionicons.Button name="cog-outline" onPress={() => router.push("/settings")} />
+        </View> 
       </>
-    </View>
+    </View> //First one is log in, second message, third listing, fourth settings 
 
   );
 }
@@ -111,8 +110,8 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
     justifyContent: 'center'
   },
   card: {
-    borderRadius: 8,
-    shadowRadius: 25,
+    borderRadius: 30,
+    shadowRadius: 10,
     shadowColor: '#000',
     shadowOpacity: 0.08,
     shadowOffset: { width: 0, height: 0 },
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
     backgroundColor: '#fff'
   },
   cardImage: {
-    width: '50%',
+    width: '100%',
     height: '80%',
     resizeMode: 'contain'
   }

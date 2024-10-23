@@ -9,7 +9,7 @@ import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 
 
-const MessageBoardScreen = () => {
+const MessageBoard = () => {
     const auth = getAuth();
 
     const GetUser = async () => {
@@ -25,5 +25,5 @@ const MessageBoardScreen = () => {
         </SafeAreaView>
     );
 }
-export default MessageBoardScreen;
+export default MessageBoard;
 

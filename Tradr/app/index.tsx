@@ -94,10 +94,18 @@ function IndexScreen() {
             height: "80%",
           }}
         >
+<<<<<<< HEAD
           <Button title="Go to Sign In" onPress={() => navigation.navigate('Login')} />
           <Button title="Go to Message Board" onPress={() => navigation.navigate('MessageBoard')} />
           <Button title="Create Listing" onPress={() => navigation.navigate('Listings')} />
           <Button title="Go to Settings" onPress={() => navigation.navigate('Settings')} />
+=======
+          <Button title="Go to Sign In" onPress={() => router.push("/loginScreen")} />
+          <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
+          <Button title="Create Listing" onPress={() => router.push("/listing")} />
+          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
+          <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
+>>>>>>> 78f695865c71fa3f8b95bc4b1003a2e7a2d277c8
         </View>
       </>
     </View>

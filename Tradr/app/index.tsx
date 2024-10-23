@@ -1,6 +1,8 @@
 import { Text, StyleSheet, View, Button, Appearance, useColorScheme, Image } from "react-native";
-import { useRouter } from "expo-router";
-import { Link, Stack } from 'expo-router';
+//import { useRouter } from "expo-router";
+//import { Link, Stack } from 'expo-router';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import getLocation from './location';
 import MyComponent from './settings';
 
@@ -17,8 +19,8 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
   );
 };
 
-export default function Index() {
-  const router = useRouter();
+function IndexScreen() {
+  const navigation = useNavigation();
   const { longitude, latitude, errorMsg } = getLocation();
   const [index, setIndex] = React.useState(0);
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
@@ -30,7 +32,7 @@ export default function Index() {
         cards={data}
         cardIndex={index}
         renderCard={(card) => <Card card={card} />}
-        onSwiper={onSwiped}
+        onSwiper={onSwiped} //onSwiped?
         disableBottomSwipe
         disableTopSwipe
         animateOverlayLabelsOpacity //Syling for swipe
@@ -92,16 +94,26 @@ export default function Index() {
             height: "80%",
           }}
         >
+<<<<<<< HEAD
+          <Button title="Go to Sign In" onPress={() => navigation.navigate('Login')} />
+          <Button title="Go to Message Board" onPress={() => navigation.navigate('MessageBoard')} />
+          <Button title="Create Listing" onPress={() => navigation.navigate('Listings')} />
+          <Button title="Go to Settings" onPress={() => navigation.navigate('Settings')} />
+=======
           <Button title="Go to Sign In" onPress={() => router.push("/loginScreen")} />
           <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
           <Button title="Create Listing" onPress={() => router.push("/listing")} />
           <Button title="Go to Settings" onPress={() => router.push("/settings")} />
+          <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
+>>>>>>> 78f695865c71fa3f8b95bc4b1003a2e7a2d277c8
         </View>
       </>
     </View>
 
   );
 }
+
+export default IndexScreen;
 
 const styles = StyleSheet.create({ //Styling to get the card to display on page
   container: {

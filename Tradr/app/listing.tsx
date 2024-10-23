@@ -9,7 +9,7 @@ import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-export default function listing() {
+export default function listingScreen() {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
 
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
-function darkModeUI() {
+function settingsScreen() {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
 
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default darkModeUI;
+export default settingsScreen;

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router';
 import { FIREBASE_AUTH } from '@/firebase.js';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 
@@ -12,8 +12,31 @@ const loginScreen = () => {
   //const [loading, setLoading] = useState(false)
   const auth = FIREBASE_AUTH;
 
+
+
+
   //const nav = useNavigation<NativeStackNavigationProp<any>>();
   const router = useRouter();
+
+  const setupData = async () => {
+    const db = getDatabase();
+    const imageUrl = "https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d"
+
+
+    const user = auth.currentUser;
+    const UID = user?.uid;
+    const userName = `New_User${Date.now()}`;
+    const userEmail = user?.email
+    const placeholderImage = imageUrl
+
+    set(refDatabase(db, `users/${UID}/profileInfo`), {
+      name: userName,
+      UserID: UID,
+      email: userEmail,
+      Profile_Picture: placeholderImage
+    });
+
+  }
 
   const handleLogin = async () => {
     if (email && password) {
@@ -37,7 +60,7 @@ const loginScreen = () => {
         const response = await createUserWithEmailAndPassword(auth, email, password)
         // console.log(response)
         if (response.user) {
-          alert("Registration Successful!")
+          router.push("/loginScreen")
         }
 
       } catch (e: any) {

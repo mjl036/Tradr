@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router';
-import { FIREBASE_AUTH } from '@/firebase.js';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH, FIREBASE_STORAGE } from '@/firebase.js';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getDatabase, set, ref as refDatabase } from 'firebase/database';
+
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 
@@ -45,7 +47,7 @@ const loginScreen = () => {
         console.log(response)
         if (response.user) {
           alert('Login Successful!');
-          router.push("./index");
+          router.push("../");
         }
       } catch (e: any) {
         console.log(e)
@@ -60,7 +62,8 @@ const loginScreen = () => {
         const response = await createUserWithEmailAndPassword(auth, email, password)
         // console.log(response)
         if (response.user) {
-          router.push("/loginScreen")
+          alert('Creation Successful')
+          setupData();
         }
 
       } catch (e: any) {

@@ -1,4 +1,4 @@
-import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground } from "react-native";
+import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground, Pressable, Alert } from "react-native";
 import React, { useState } from 'react'
 import { useRouter } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -17,6 +17,9 @@ export default function accountSettings() {
     const userUID = user?.uid;
     //updateProfile(auth.currentUser, { displayName: 'test', null});
 
+    const handlePress = () => {
+        alert('test');
+    }
 
 
     return (
@@ -32,9 +35,9 @@ export default function accountSettings() {
                 <View style={styles.containerSettings}>
 
                 </View>
-                <View style={styles.containerSettings}>
-
-                </View>
+                <Pressable style={styles.containerSettings} onPress={handlePress}>
+                    <Text> This is a test of Pressable</Text>
+                </Pressable>
             </View>
             <View style={{ height: '60%' }}>
 

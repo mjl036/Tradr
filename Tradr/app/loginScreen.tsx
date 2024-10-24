@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router';
 import { FIREBASE_AUTH } from '@/firebase.js';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 
@@ -22,7 +22,7 @@ const loginScreen = () => {
         console.log(response)
         if (response.user) {
           alert('Login Successful!');
-          router.push("../");
+          router.push("./index");
         }
       } catch (e: any) {
         console.log(e)
@@ -37,12 +37,27 @@ const loginScreen = () => {
         const response = await createUserWithEmailAndPassword(auth, email, password)
         // console.log(response)
         if (response.user) {
-          router.push("/loginScreen")
+          alert("Registration Successful!")
         }
 
       } catch (e: any) {
         console.log(e)
         Alert.alert('Registration failed', e.message)
+      }
+    }
+  }
+
+  const handleLogout = async () => {
+    if (!email && !password) {
+      try {
+        signOut(auth)
+        // Sign-out success
+        //console.log("Logged Out");
+        alert("Logged Out");
+        router.push("/loginScreen")
+      } catch (e: any) {
+        console.log(e)
+        Alert.alert('Log Out failed', e.message)
       }
     }
   }
@@ -81,6 +96,12 @@ const loginScreen = () => {
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleLogout}
+          style={styles.buttonRed}
+        >
+          <Text style={styles.buttonText}>Sign Out</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   )
@@ -112,6 +133,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#0782f9',
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonRed: {
+    backgroundColor: '#FF0000',
     width: '100%',
     padding: 15,
     borderRadius: 10,

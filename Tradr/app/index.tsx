@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Button, Appearance, useColorScheme, Image } from "react-native";
+import { Text, StyleSheet, View, Button, Appearance, useColorScheme, Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Link, Stack } from 'expo-router';
 import getLocation from './location';

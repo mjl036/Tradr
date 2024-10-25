@@ -19,6 +19,7 @@ export default function accountSettings() {
     const [userEmail, setUserEmail] = useState('PlaceHolderEmail');
     const [userNameModalVisible, setUserNameModalVisible] = useState(false);
 
+    {/* This function is to set up all the data from the uploaded user information */ }
     function getUserData() {
         const userRef = dbRef(db, `users/${userID}/profileInfo`);
         loaded = true;
@@ -31,64 +32,71 @@ export default function accountSettings() {
 
     }
 
-
+    {/* Only works if user isnt null, otherwise should redirect to login screen theoretically not possible anymore though*/ }
     if (user != null) {
         useEffect(() => { getUserData(); })
         //updateProfile(auth.currentUser, { displayName: 'test', null});
 
+        {/* Working Example to update items*/ }
         const handlePress = () => {
             update(dbRef(db, `users/${userID}/profileInfo`), {
-                name: 'hahaha!'
+                name: 'max characters for username?'
             })
         }
 
         return (
             <SafeAreaView style={styles.container}>
-                <View style={{ flexDirection: "row", height: 110, backgroundColor: 'red', borderColor: 'black', borderRadius: 10, borderWidth: 5 }}>
+
+                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', alignSelf: 'center', }}>ACCOUNT SETTINGS</Text>
+                {/* This is to create the top bar with all the current set user info, colors still a wip*/}
+                <View style={{ flexDirection: "row", height: 130, backgroundColor: '#0094C6', borderColor: 'black', borderRadius: 10, borderWidth: 5, padding: 10 }}>
                     <Image source={{ uri: profilePic }} style={styles.profileImageArea} />
                     <View style={{ flexDirection: 'column', flex: 1 }}>
-                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>User Name: {userName} </Text>
-                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>Email:  {userEmail}: </Text>
-                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>Password:  NICKNAME: </Text>
-                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>Other Stuff:  NICKNAME: </Text>
+                        <Text style={styles.userInfoText}>User Name: {userName} </Text>
+                        <Text style={styles.userInfoText}>Email:  {userEmail}: </Text>
+                        <Text style={styles.userInfoText}>Password:  NICKNAME: </Text>
+                        <Text style={styles.userInfoText}>Other Stuff:  NICKNAME: </Text>
                     </View>
 
                 </View>
 
-                <View style={{ flex: 1 }}>
-
-
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.title}>Change Username</Text>
-
-                    </TouchableOpacity>
-
+                <View style={{ flex: 1, padding: 5 }}>
 
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.title}>Change Password</Text>
+                        <Text style={styles.buttonText}>Change Username</Text>
                     </TouchableOpacity>
 
-
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}>Change Password</Text>
+                    </TouchableOpacity>
 
                     <TouchableOpacity style={styles.button} onPress={() => setUserNameModalVisible(true)}>
-                        <Text style={styles.title}>Modal Test</Text>
+                        <Text style={styles.buttonText}>Modal Test</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.button} onPress={handlePress}>
-                        <Text style={styles.title}>Change Test</Text>
+                        <Text style={styles.buttonText}>Change Test</Text>
                     </TouchableOpacity>
 
                 </View>
+
                 <Modal style={{ alignContent: 'center' }} visible={userNameModalVisible} animationType='slide' onRequestClose={() => setUserNameModalVisible(false)}>
-                    <View style={{ backgroundColor: '#05E7C', width: '85%', height: '85%', alignContent: 'center', alignSelf: 'center' }}>
-                        <Text>This is a test</Text>
-                    </View>
+                    <SafeAreaView style={{ backgroundColor: 'blue', width: '100%', height: '100%', alignContent: 'center', alignSelf: 'center' }}>
+
+                        <Text style={{ fontSize: 50, fontWeight: 'condensedBold', alignContent: 'center' }}>This is a test</Text>
+
+                        <TouchableOpacity style={styles.quitButton} onPress={handlePress}>
+                            <Text style={styles.buttonText} onPress={() => setUserNameModalVisible(false)}>Close Modal</Text>
+                        </TouchableOpacity>
+
+                    </SafeAreaView>
                 </Modal>
             </SafeAreaView>
         )
     }
 }
 
+{/* The Style Sheet*/ }
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#001242',
@@ -110,15 +118,22 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 5
 
     },
-    title: {
+    quitButton: {
+        backgroundColor: 'red',
+        padding: 2,
+        justifyContent: 'center',
+        height: 50,
+        borderColor: '000022',
+        borderWidth: 3,
+        margin: 5,
+        borderRadius: 10
+
+    },
+    buttonText: {
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 'bold',
         color: 'white'
-    },
-    buttonText: {
-        textAlign: 'center',
-        fontSize: 20
     },
     profileImageArea: {
         width: 100,
@@ -126,7 +141,16 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 2,
         borderCurve: 'circular',
-        borderRadius: 50
+        borderRadius: 50,
+    },
+    userInfoText: {
+        paddingLeft: 15,
+        alignSelf: 'flex-start',
+        color: 'white',
+        textAlignVertical: 'auto',
+        textAlign: 'left',
+        flex: 1
     }
+
 });
 

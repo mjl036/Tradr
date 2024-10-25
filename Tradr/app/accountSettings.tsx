@@ -39,7 +39,7 @@ export default function accountSettings() {
 
         {/* Working Example to update items*/ }
         const handlePress = () => {
-            update(dbRef(db, `users/${userID}/profileInfo`), {
+            update(dbRef(db, `users/s${userID}/profileInfo`), {
                 name: 'VICTORY!'
             })
         }

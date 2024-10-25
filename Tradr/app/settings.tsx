@@ -4,7 +4,6 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { useState } from 'react';
 
 
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts

@@ -14,7 +14,6 @@ export default function listing() {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const auth = getAuth();
-  const [selectedSeries, setSelectedSeries] = useState();
 
 
 

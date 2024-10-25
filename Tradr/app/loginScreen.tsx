@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter, Redirect } from 'expo-router';
 import { FIREBASE_AUTH, FIREBASE_STORAGE } from '@/firebase.js';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getDatabase, set, ref as refDatabase } from 'firebase/database';
 
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';

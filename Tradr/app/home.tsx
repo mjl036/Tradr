@@ -8,6 +8,7 @@ import data from './placeholderimage';
 import React from 'react'
 import { signOut } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
+import { useState } from 'react';
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
@@ -39,7 +40,17 @@ export default function Index() {
       Alert.alert('Log Out failed', e.message);
     }
   }
+  
+  const App = () => {
+    const [showButtons, setShowButtons] = useState(false);
 
+    const handlePress = () => {
+      setShowButtons(!showButtons);
+    }
+    const handleExtraButtonPress = (buttonNumber) => {
+      Alert.alert('Button ${buttonNumber} pressed');
+    }
+  }
   return (
     <View style={styles.container}>
       <Swiper
@@ -114,6 +125,8 @@ export default function Index() {
           <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
           <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
           <Button title="Report" onPress={() => Alert.alert('Simple Button pressed')} />
+          <Button title="This listing is offensive." onPress={() => handleExtraButtonPress(1)} />
+          <Button title="I don't like this person." onPress={() => handleExtraButtonPress(2)} />
         </View>
       </>
     </View>

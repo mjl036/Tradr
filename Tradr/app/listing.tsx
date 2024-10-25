@@ -1,4 +1,4 @@
-import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground } from "react-native";
 import React, { useState } from 'react'
 import { useRouter } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -9,7 +9,6 @@ import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-export default ListingSeriesDropdown;
 export default function listing() {
   const router = useRouter();
   const [title, setTitle] = useState('');
@@ -18,74 +17,8 @@ export default function listing() {
   const auth = getAuth();
 
 
-  const ListingSeriesDropdown = () => {
-    const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
-    
-    const listingSeries = ['Option 1', 'Option 2', 'Option 3']; // Your dropdown options
+  
 
-    const toggleDropdown = () => {
-      setDropdownVisible((prev) => !prev);
-    };
-
-    const handleSelect = (item) => {
-      setSelectedItem(item);
-      setDropdownVisible(false); // Close dropdown after selection
-    };
-
-    return (
-      <View style={styles.container}>
-        <Button title="Open Dropdown" onPress={toggleDropdown} />
-        
-        {dropdownVisible && (
-          <View style={styles.dropdown}>
-            {listingSeries.map((item, index) => (
-              <TouchableOpacity key={index} onPress={() => handleSelect(item)} style={styles.option}>
-                <Text style={styles.optionText}>{item}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-        
-        {selectedItem && (
-          <Text style={styles.selectedText}>Selected: {selectedItem}</Text>
-        )}
-      </View>
-    );
-  };
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    dropdown: {
-      borderWidth: 1,
-      borderColor: 'gray',
-      borderRadius: 5,
-      position: 'absolute',
-      top: 50, // Adjust as needed
-      backgroundColor: 'white',
-      zIndex: 1000,
-    },
-    option: {
-      padding: 10,
-    },
-    optionText: {
-      color: 'black',
-    },
-    selectedText: {
-      marginTop: 10,
-      fontSize: 16,
-    },
-  });
-
-
-  <Button
-  title='Select Series'
-  onPress={() => ListingSeriesDropdown()}
-  />
   // documentation https://docs.expo.dev/versions/latest/sdk/imagepicker
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

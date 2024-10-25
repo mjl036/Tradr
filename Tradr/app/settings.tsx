@@ -6,7 +6,6 @@ import { useColorScheme } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 
-const [selectedSeries, setSelectedSeries] = useState();
 
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
 function darkModeUI() {

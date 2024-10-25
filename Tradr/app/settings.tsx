@@ -50,13 +50,3 @@ const styles = StyleSheet.create({
 });
 
 export default darkModeUI;
-
-<Picker
-  selectedValue={selectedSeries}
-  style={{ height: 50, width: 100 }}
-  onValueChange={(itemValue, itemIndex) =>
-    setSelectedSeries(itemValue)
-  }>
-  <Picker.Item label="Default" value="none" />
-  <Picker.Item label="Pokemon" value="poke" />
-</Picker>

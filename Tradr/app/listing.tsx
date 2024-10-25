@@ -92,7 +92,7 @@ export default function listing() {
   }
 
   return (
-
+    
     <View style={styles.container}>
       <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
         <Button title="Pick an image from camera roll" onPress={pickImage} />
@@ -122,15 +122,8 @@ export default function listing() {
         onPress={handleSubmit}
         color='black'
       />
-      <Picker
-        selectedValue={selectedSeries}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedSeries(itemValue)
-        }>
-        <Picker.Item label="Default" value="null" />
-        <Picker.Item label="Pokemon" value="poke" />
-      </Picker>
     </View>
+    
   );
 
 }

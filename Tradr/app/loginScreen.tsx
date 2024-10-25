@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
-import { useRouter } from 'expo-router';
+import { useRouter, Redirect } from 'expo-router';
 import { FIREBASE_AUTH, FIREBASE_STORAGE } from '@/firebase.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getDatabase, set, ref as refDatabase } from 'firebase/database';
@@ -47,11 +47,11 @@ const loginScreen = () => {
         console.log(response)
         if (response.user) {
           alert('Login Successful!');
-          router.push("../");
+          router.replace("/home");
         }
       } catch (e: any) {
-        console.log(e)
-        Alert.alert('Login failed', e.message)
+        console.log(e);
+        Alert.alert('Login failed', e.message);
       }
     }
   }
@@ -62,31 +62,31 @@ const loginScreen = () => {
         const response = await createUserWithEmailAndPassword(auth, email, password)
         // console.log(response)
         if (response.user) {
-          alert('Creation Successful')
+          alert('Creation Successful');
           setupData();
         }
 
       } catch (e: any) {
-        console.log(e)
-        Alert.alert('Registration failed', e.message)
+        console.log(e);
+        Alert.alert('Registration failed', e.message);
       }
     }
   }
 
-  const handleLogout = async () => {
+  /*const handleLogout = async () => {
     if (!email && !password) {
       try {
         signOut(auth)
         // Sign-out success
         //console.log("Logged Out");
         alert("Logged Out");
-        router.push("/loginScreen")
+        router.replace("/loginScreen");
       } catch (e: any) {
-        console.log(e)
-        Alert.alert('Log Out failed', e.message)
+        console.log(e);
+        Alert.alert('Log Out failed', e.message);
       }
     }
-  }
+  }*/
 
   return (
     <KeyboardAvoidingView
@@ -121,12 +121,6 @@ const loginScreen = () => {
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleLogout}
-          style={styles.buttonRed}
-        >
-          <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

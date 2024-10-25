@@ -82,7 +82,10 @@ export default function listing() {
   });
 
 
-
+  <Button
+  title='Select Series'
+  onPress={() => ListingSeriesDropdown()}
+  />
   // documentation https://docs.expo.dev/versions/latest/sdk/imagepicker
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

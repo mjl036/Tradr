@@ -17,6 +17,7 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
   );
 };
 
+
 export default function Index() {
   const router = useRouter();
   const auth = FIREBASE_AUTH;
@@ -25,7 +26,12 @@ export default function Index() {
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
-
+  <Button
+  onPress={onPressLearnMore}
+  title="Learn More"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+  />
   const handleLogout = () => {
     try {
       signOut(auth)
@@ -112,6 +118,7 @@ export default function Index() {
           <Button title="Go to Settings" onPress={() => router.push("/settings")} />
           <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
           <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
+          <Button title="Report" onPress={alert.alert("You have pressed this button")} />
         </View>
       </>
     </View>

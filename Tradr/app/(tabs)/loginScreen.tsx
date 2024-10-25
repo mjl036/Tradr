@@ -140,9 +140,10 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'white',
+    borderColor: 'black',
     paddingHorizontal: 15,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: 20,
     marginTop: 5,
   },
   buttonContainer: {

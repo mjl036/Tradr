@@ -2,8 +2,8 @@ import { Text, View, Button, SafeAreaView, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React from 'react';
-import ChatWindow from '../chatWindow'
-import { FIREBASE_STORAGE } from '../firebase';
+import ChatWindow from '../../chatWindow'
+import { FIREBASE_STORAGE } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";

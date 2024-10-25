@@ -1,10 +1,10 @@
 import { Alert, Text, StyleSheet, View, Button, Appearance, useColorScheme, Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Link, Stack } from 'expo-router';
-import getLocation from './location';
-import MyComponent from './settings';
+import getLocation from '../location';
+import MyComponent from '../settings';
 import Swiper from 'react-native-deck-swiper';
-import data from './placeholderimage';
+import data from '../placeholderimage';
 import React from 'react'
 import { signOut } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
@@ -99,19 +99,6 @@ export default function Index() {
           }}
         >
 
-        </View>
-        <View
-          style={{
-            flex: 1,
-            width: "80%",
-            height: "80%",
-          }}
-        >
-          <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
-          <Button title="Create Listing" onPress={() => router.push("/listing")} />
-          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
-          <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
-          <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
         </View>
       </>
     </View>

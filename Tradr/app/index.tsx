@@ -7,5 +7,5 @@ import { Redirect } from 'expo-router';
 //If not logged in -> login screen.
 //if logged in -> home.
 export default function Index() {
-  return <Redirect href="/loginScreen" />;
+  return <Redirect href="../loginScreen" />;
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useRouter } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
-import { FIREBASE_STORAGE } from '../firebase';
+import { FIREBASE_STORAGE } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";

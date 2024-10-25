@@ -8,6 +8,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { Picker } from '@react-native-picker/picker';
 
 export default function listing() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function listing() {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const auth = getAuth();
+  const [selectedSeries, setSelectedSeries] = useState();
 
 
   
@@ -54,6 +56,15 @@ export default function listing() {
     setImage(null);
   }
 
+  <Picker
+    selectedValue={selectedSeries}
+    onValueChange={(itemValue, itemIndex) =>
+      setSelectedSeries(itemValue)
+    }>
+    <Picker.Item label="Default" value="null" />
+    <Picker.Item label="Pokemon" value="poke" />
+  </Picker>
+  
   const handleSubmit = async () => {
     if (!image || !title || !description) {
       alert('Missing Image, Title, or Description');

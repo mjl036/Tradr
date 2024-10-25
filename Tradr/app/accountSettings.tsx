@@ -1,14 +1,8 @@
-import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground, Pressable, Alert } from "react-native";
-import React, { useState } from 'react'
-import { useRouter } from "expo-router";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as ImagePicker from 'expo-image-picker';
-import { FIREBASE_STORAGE } from '../firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getDatabase, ref as dbRef, set, child, get, onValue, update } from 'firebase/database';
-import { getAuth, setPersistence, updateProfile } from "firebase/auth";
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { setNativeProps } from "react-native-reanimated";
+import { Text, View, StyleSheet, Image, TouchableOpacity, Modal } from "react-native";
+import React, { useEffect, useState } from 'react'
+import { getDatabase, ref as dbRef, onValue, update } from 'firebase/database';
+import { getAuth } from "firebase/auth";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // https://firebase.google.com/docs/database/web/read-and-write
 let loaded = false; // ensures that it only gets the user data when desired
@@ -20,10 +14,10 @@ export default function accountSettings() {
     const refDB = dbRef(getDatabase());
     const userID = user?.uid;
 
-    const [userName, setUserName] = useState('');
-    const [profilePic, setProfilePic] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-
+    const [userName, setUserName] = useState('PlaceHolderName');
+    const [profilePic, setProfilePic] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
+    const [userEmail, setUserEmail] = useState('PlaceHolderEmail');
+    const [userNameModalVisible, setUserNameModalVisible] = useState(false);
 
     function getUserData() {
         const userRef = dbRef(db, `users/${userID}/profileInfo`);
@@ -39,79 +33,81 @@ export default function accountSettings() {
 
 
     if (user != null) {
-        if (loaded == false) {
-            getUserData();
-        }
+        useEffect(() => { getUserData(); })
         //updateProfile(auth.currentUser, { displayName: 'test', null});
 
         const handlePress = () => {
-            alert('test');
             update(dbRef(db, `users/${userID}/profileInfo`), {
-                name: 'Victory!'
+                name: 'hahaha!'
             })
         }
 
         return (
-            <View style={styles.container}>
-                <View style={{ height: '40%' }}>
-                    <View>
+            <SafeAreaView style={styles.container}>
+                <View style={{ flexDirection: "row", height: 110, backgroundColor: 'red', borderColor: 'black', borderRadius: 10, borderWidth: 5 }}>
+                    <Image source={{ uri: profilePic }} style={styles.profileImageArea} />
+                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>User Name: {userName} </Text>
+                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>Email:  {userEmail}: </Text>
+                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>Password:  NICKNAME: </Text>
+                        <Text style={{ alignSelf: "center", color: 'white', textAlignVertical: 'auto', textAlign: 'left', flex: 1 }}>Other Stuff:  NICKNAME: </Text>
+                    </View>
+
+                </View>
+
+                <View style={{ flex: 1 }}>
+
+
+                    <TouchableOpacity style={styles.button}>
                         <Text style={styles.title}>Change Username</Text>
-                    </View>
 
-                    <Pressable style={styles.button}>
-                        <Text>Username: {userName}</Text>
+                    </TouchableOpacity>
 
-                    </Pressable>
 
-                    <View>
+                    <TouchableOpacity style={styles.button}>
                         <Text style={styles.title}>Change Password</Text>
-                    </View>
+                    </TouchableOpacity>
 
-                    <Pressable style={styles.button}>
-                        <Text>Email: {userEmail}</Text>
-                    </Pressable>
 
-                    <View>
-                        <Text style={styles.title}>Change Something</Text>
-                    </View>
 
-                    <Pressable style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => setUserNameModalVisible(true)}>
+                        <Text style={styles.title}>Modal Test</Text>
+                    </TouchableOpacity>
 
-                    </Pressable>
-
-                    <View>
+                    <TouchableOpacity style={styles.button} onPress={handlePress}>
                         <Text style={styles.title}>Change Test</Text>
+                    </TouchableOpacity>
+
+                </View>
+                <Modal style={{ alignContent: 'center' }} visible={userNameModalVisible} animationType='slide' onRequestClose={() => setUserNameModalVisible(false)}>
+                    <View style={{ backgroundColor: '#05E7C', width: '85%', height: '85%', alignContent: 'center', alignSelf: 'center' }}>
+                        <Text>This is a test</Text>
                     </View>
-
-                    <Pressable style={styles.button} onPress={handlePress}>
-                        <Text> This is a test of Pressable</Text>
-                    </Pressable>
-
-                </View>
-                <View style={{ height: '60%' }}>
-
-                </View>
-
-            </View>
+                </Modal>
+            </SafeAreaView>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'darkblue',
-        padding: 20,
+        backgroundColor: '#001242',
+        padding: 5,
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'flex-start'
     },
     button: {
         backgroundColor: 'lightblue',
         padding: 2,
-        flex: 2,
         justifyContent: 'center',
-        borderColor: 'black',
-        borderWidth: 6,
-        margin: 5
+        height: 50,
+        borderColor: '000022',
+        borderWidth: 3,
+        margin: 5,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5
 
     },
     title: {
@@ -119,6 +115,18 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         color: 'white'
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 20
+    },
+    profileImageArea: {
+        width: 100,
+        height: 100,
+        borderColor: 'black',
+        borderWidth: 2,
+        borderCurve: 'circular',
+        borderRadius: 50
     }
 });
 

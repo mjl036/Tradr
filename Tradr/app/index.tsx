@@ -107,7 +107,7 @@ export default function Index() {
 const styles = StyleSheet.create({ //Styling to get the card to display on page
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center'
   },

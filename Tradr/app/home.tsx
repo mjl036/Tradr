@@ -26,12 +26,7 @@ export default function Index() {
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
-  <Button
-  onPress={onPressLearnMore}
-  title="Learn More"
-  color="#841584"
-  accessibilityLabel="Learn more about this purple button"
-  />
+
   const handleLogout = () => {
     try {
       signOut(auth)

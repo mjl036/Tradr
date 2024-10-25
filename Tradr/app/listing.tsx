@@ -16,7 +16,7 @@ export default function listing() {
   const [image, setImage] = useState<string | null>(null);
   const auth = getAuth();
 
-
+  export default ListingSeriesDropdown;
   const ListingSeriesDropdown = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -80,7 +80,6 @@ export default function listing() {
     },
   });
 
-export default ListingSeriesDropdown;
 
 
   // documentation https://docs.expo.dev/versions/latest/sdk/imagepicker

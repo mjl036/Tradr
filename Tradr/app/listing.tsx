@@ -56,15 +56,7 @@ export default function listing() {
     setImage(null);
   }
 
-  <Picker
-    selectedValue={selectedSeries}
-    onValueChange={(itemValue, itemIndex) =>
-      setSelectedSeries(itemValue)
-    }>
-    <Picker.Item label="Default" value="null" />
-    <Picker.Item label="Pokemon" value="poke" />
-  </Picker>
-  
+
   const handleSubmit = async () => {
     if (!image || !title || !description) {
       alert('Missing Image, Title, or Description');
@@ -130,6 +122,14 @@ export default function listing() {
         onPress={handleSubmit}
         color='black'
       />
+      <Picker
+        selectedValue={selectedSeries}
+        onValueChange={(itemValue, itemIndex) =>
+          setSelectedSeries(itemValue)
+        }>
+        <Picker.Item label="Default" value="null" />
+        <Picker.Item label="Pokemon" value="poke" />
+      </Picker>
     </View>
   );
 

@@ -41,20 +41,9 @@ export default function Index() {
     }
   }
   
-  const App = () => {
-    const [showButtons, setShowButtons] = useState(false);
 
-    const handlePress = () => {
-      setShowButtons(!showButtons);
-    }
-    const handleExtraButtonPress = (buttonNumber) => {
-      Alert.alert('Button ${buttonNumber} pressed');
-    }
-  }
   return (
     <View style={styles.container}>
-      <Button title="This listing is offensive." onPress={() => handleExtraButtonPress(1)} />
-      <Button title="I don't like this person." onPress={() => handleExtraButtonPress(2)} />
       <Swiper
         cards={data}
         cardIndex={index}

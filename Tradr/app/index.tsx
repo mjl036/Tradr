@@ -16,6 +16,7 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
   );
 };
 
+
 export default function Index() {
   const router = useRouter();
   const { longitude, latitude, errorMsg } = getLocation();

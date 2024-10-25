@@ -9,6 +9,7 @@ import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
+export default ListingSeriesDropdown;
 export default function listing() {
   const router = useRouter();
   const [title, setTitle] = useState('');
@@ -16,7 +17,7 @@ export default function listing() {
   const [image, setImage] = useState<string | null>(null);
   const auth = getAuth();
 
-  export default ListingSeriesDropdown;
+
   const ListingSeriesDropdown = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);

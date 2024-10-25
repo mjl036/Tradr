@@ -124,17 +124,6 @@ export default function listing() {
 
   );
 
-  return (
-    <Picker
-      selectedValue={selectedSeries}
-      onValueChange={(itemValue, itemIndex) =>
-        setSelectedSeries(itemValue)
-      }>
-      <Picker.Item label="Default" value="null" />
-      <Picker.Item label="Pokemon" value="poke" />
-    </Picker>
-  )
-
 }
 
 const styles = StyleSheet.create({

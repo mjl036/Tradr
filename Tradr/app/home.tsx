@@ -118,7 +118,7 @@ export default function Index() {
           <Button title="Go to Settings" onPress={() => router.push("/settings")} />
           <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
           <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
-          <Button title="Report" onPress={() => Alert.alert('Thanks for reporting!')} />s
+          <Button title="Report" onPress={() => Alert.alert('Thanks for reporting!')} />
         </View>
       </>
     </View >

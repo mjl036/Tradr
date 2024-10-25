@@ -9,12 +9,16 @@ import React from 'react'
 import { signOut } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
 import { useState } from 'react';
+import { ThemeProvider } from './ThemeContext';
+
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: card.image }} style={styles.cardImage} />
-    </View>
+    <ThemeProvider>
+      <View style={styles.card}>
+        <Image source={{ uri: card.image }} style={styles.cardImage} />
+      </View>
+    </ThemeProvider>
   );
 };
 

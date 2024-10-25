@@ -3,6 +3,9 @@ import { useRouter } from "expo-router";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+
+const [selectedSeries, setSelectedSeries] = useState();
 
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
 function darkModeUI() {
@@ -14,6 +17,7 @@ function darkModeUI() {
   };
 
   return (
+    
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Example Text
@@ -45,3 +49,13 @@ const styles = StyleSheet.create({
 });
 
 export default darkModeUI;
+
+<Picker
+  selectedValue={selectedSeries}
+  style={{ height: 50, width: 100 }}
+  onValueChange={(itemValue, itemIndex) =>
+    setSelectedSeries(itemValue)
+  }>
+  <Picker.Item label="Default" value="none" />
+  <Picker.Item label="Pokemon" value="poke" />
+</Picker>

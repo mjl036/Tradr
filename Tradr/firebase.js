@@ -1,13 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-//import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-//import { initializeAuth, getReactNativePersistence } from "firebase/auth";
-//import getReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCbxid82NWlTaascWbFTfMJivYaItQ8QEA",
   authDomain: "tradr-app-c2b3a.firebaseapp.com",
@@ -24,6 +19,4 @@ export const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
-//export const FIREBASE_DB = getFirestore(FIREBASE_APP); // Initialize Firestore
 export const FIREBASE_STORAGE = getStorage(FIREBASE_APP);
-//export const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {persistence: getReactNativePersistence(getReactNativeAsyncStorage),});

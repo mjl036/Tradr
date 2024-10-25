@@ -8,6 +8,7 @@ import data from '../placeholderimage';
 import React from 'react'
 import { signOut } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
+import { useState } from 'react';
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
@@ -16,6 +17,7 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
     </View>
   );
 };
+
 
 export default function Index() {
   const router = useRouter();
@@ -38,6 +40,7 @@ export default function Index() {
       Alert.alert('Log Out failed', e.message);
     }
   }
+
 
   return (
     <View style={styles.container}>
@@ -100,8 +103,28 @@ export default function Index() {
         >
 
         </View>
+<<<<<<< HEAD:Tradr/app/(tabs)/home.tsx
+=======
+        <View
+          style={{
+            flex: 1,
+            width: "80%",
+            height: "80%",
+          }}
+        >
+
+        </View>
+        <View style={{}}>
+          <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
+          <Button title="Create Listing" onPress={() => router.push("/listing")} />
+          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
+          <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
+          <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
+          <Button title="Report" onPress={() => Alert.alert('Thanks for reporting!')} />
+        </View>
+>>>>>>> 8504008474c66c9859a44b76b77d62f351aee00e:Tradr/app/home.tsx
       </>
-    </View>
+    </View >
 
   );
 }

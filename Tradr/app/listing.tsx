@@ -14,7 +14,6 @@ export default function listing() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<string | null>(null);
-  const [userID, setUserID] = useState('');
   const auth = getAuth();
 
 
@@ -61,26 +60,26 @@ export default function listing() {
     }
 
     var user = auth.currentUser;
-    var userID = await user?.getIdToken();
+    var userUID = user?.uid
     var userEmail = user?.email;
-    var emailDatabaseName = `${userEmail?.replace('.', '')}`;  // Note to self, change user Email for username to
 
-    if (userID == null) {
+
+    if (userUID == null) {
       alert('Not Logged In, cant submit');
       return;
     }
 
     const response = await fetch(image);
     const blob = await response.blob();
-    const imageFileName = `${title}`; // title.replace(/\s+/g, '')}${Date.now(); this is name scheme, currently testing with simple name as to link it to an account instead
+    const imageFileName = `${title}${'_'}${Date.now()}`; // title.replace(/\s+/g, '')}${Date.now(); this is name scheme, currently testing with simple name as to link it to an account instead
     const storageRef = ref(FIREBASE_STORAGE, `images/${imageFileName}`);
     const db = getDatabase();
-    const listingRef = dbRef(db, `users/${emailDatabaseName}/listings/` + imageFileName);
+    const listingRef = dbRef(db, `users/${userUID}/listings/` + imageFileName);
 
 
     await uploadBytes(storageRef, blob,);
     const imageUrl = await getDownloadURL(storageRef);
-    const cardData = { userID, title, description, imageUrl };
+    const cardData = { userUID, title, description, imageUrl };
     resetFields();
     await set(listingRef, cardData);
 
@@ -89,6 +88,7 @@ export default function listing() {
   }
 
   return (
+
     <View style={styles.container}>
       <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
         <Button title="Pick an image from camera roll" onPress={pickImage} />

@@ -4,6 +4,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react';
 
 const [selectedSeries, setSelectedSeries] = useState();
 

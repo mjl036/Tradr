@@ -40,7 +40,7 @@ export default function accountSettings() {
         {/* Working Example to update items*/ }
         const handlePress = () => {
             update(dbRef(db, `users/${userID}/profileInfo`), {
-                name: 'max characters for username?'
+                name: 'VICTORY!'
             })
         }
 
@@ -55,7 +55,7 @@ export default function accountSettings() {
                         <Text style={styles.userInfoText}>User Name: {userName} </Text>
                         <Text style={styles.userInfoText}>Email:  {userEmail}: </Text>
                         <Text style={styles.userInfoText}>Password:  NICKNAME: </Text>
-                        <Text style={styles.userInfoText}>Other Stuff:  NICKNAME: </Text>
+                        <Text style={styles.userInfoText}>Rating:  NICKNAME: </Text>
                     </View>
 
                 </View>

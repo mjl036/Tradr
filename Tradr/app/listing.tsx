@@ -1,13 +1,11 @@
-import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground } from "react-native";
+import { View, TextInput, Button, StyleSheet, Image } from "react-native";
 import React, { useState } from 'react'
 import { useRouter } from "expo-router";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
 import { FIREBASE_STORAGE } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 export default function listing() {
   const router = useRouter();
@@ -17,7 +15,7 @@ export default function listing() {
   const auth = getAuth();
 
 
-  
+
 
   // documentation https://docs.expo.dev/versions/latest/sdk/imagepicker
   const pickImage = async () => {

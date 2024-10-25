@@ -40,7 +40,7 @@ export default function Index() {
       Alert.alert('Log Out failed', e.message);
     }
   }
-  
+
 
   return (
     <View style={styles.container}>
@@ -110,6 +110,9 @@ export default function Index() {
             height: "80%",
           }}
         >
+
+        </View>
+        <View style={{}}>
           <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
           <Button title="Create Listing" onPress={() => router.push("/listing")} />
           <Button title="Go to Settings" onPress={() => router.push("/settings")} />
@@ -118,7 +121,7 @@ export default function Index() {
           <Button title="Report" onPress={() => Alert.alert('Simple Button pressed')} />
         </View>
       </>
-    </View>
+    </View >
 
   );
 }

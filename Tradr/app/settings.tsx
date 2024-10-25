@@ -3,8 +3,6 @@ import { useRouter } from "expo-router";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
-import { useTheme} from '@/ThemeContext';
-
 
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
 function darkModeUI() {

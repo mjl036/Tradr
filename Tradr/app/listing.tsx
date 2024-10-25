@@ -1,13 +1,11 @@
-import { Text, View, TextInput, Button, StyleSheet, Image, ImageBackground } from "react-native";
+import { View, TextInput, Button, StyleSheet, Image } from "react-native";
 import React, { useState } from 'react'
 import { useRouter } from "expo-router";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as ImagePicker from 'expo-image-picker';
 import { FIREBASE_STORAGE } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Picker } from '@react-native-picker/picker';
 
 export default function listing() {
@@ -16,10 +14,9 @@ export default function listing() {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const auth = getAuth();
-  const [selectedSeries, setSelectedSeries] = useState();
 
 
-  
+
 
   // documentation https://docs.expo.dev/versions/latest/sdk/imagepicker
   const pickImage = async () => {
@@ -92,7 +89,7 @@ export default function listing() {
   }
 
   return (
-    
+
     <View style={styles.container}>
       <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
         <Button title="Pick an image from camera roll" onPress={pickImage} />
@@ -123,7 +120,7 @@ export default function listing() {
         color='black'
       />
     </View>
-    
+
   );
 
 }

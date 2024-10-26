@@ -5,10 +5,16 @@ import getLocation from '../location';
 import MyComponent from '../settings';
 import Swiper from 'react-native-deck-swiper';
 import data from '../placeholderimage';
-import React from 'react'
-import { signOut } from 'firebase/auth';
+import React from 'react';
+import { getDatabase, ref as dbRef, onValue, update } from 'firebase/database';
+import { signOut, getAuth } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+const db = getDatabase();
+const auth = getAuth();
+const user = auth.currentUser;
+const userID = user?.uid;
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
@@ -28,26 +34,49 @@ export default function Index() {
     setIndex((index + 1) % data.length);
   };
 
-  const handleLogout = () => {
-    try {
-      signOut(auth)
-      // Sign-out success
-      //console.log("Logged Out");
-      alert("Logged Out");
-      router.replace("/loginScreen");
-    } catch (e: any) {
-      console.log(e);
-      Alert.alert('Log Out failed', e.message);
-    }
-  }
+  const [allListings, setAllListings] = useState([]);
 
-
+  function getAllListings() {
+    const usersRef = dbRef(db, 'users');
+    const currentUserID = auth.currentUser?.uid;
+    const imageCards = [];
+  
+    onValue(usersRef, (snapshot) => {
+      const usersData = snapshot.val();
+  
+      for (let userID in usersData) {
+        if (userID === currentUserID) {
+          // Skip the current user’s listings
+          continue;
+        }
+  
+        const userListings = usersData[userID].listings;
+        if (userListings) {
+          for (let listingID in userListings) {
+            const listing = userListings[listingID];
+            if (listing.imageUrl) {
+              imageCards.push({
+                image: listing.imageUrl,
+                title: listing.title,
+                description: listing.description,
+              });
+            }
+          }
+        }
+      }
+  
+      setAllListings(imageCards);
+    });
+}
+    useEffect(() => {
+    getAllListings();
+}, []);
   return (
     <View style={styles.container}>
       <Swiper
-        cards={data}
+        cards={allListings}
         cardIndex={index}
-        renderCard={(card) => <Card card={card} />}
+        renderCard={(card) => card ? <Card card={card} /> :null}
         onSwiper={onSwiped}
         disableBottomSwipe
         disableTopSwipe
@@ -103,26 +132,6 @@ export default function Index() {
         >
 
         </View>
-<<<<<<< HEAD:Tradr/app/(tabs)/home.tsx
-=======
-        <View
-          style={{
-            flex: 1,
-            width: "80%",
-            height: "80%",
-          }}
-        >
-
-        </View>
-        <View style={{}}>
-          <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
-          <Button title="Create Listing" onPress={() => router.push("/listing")} />
-          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
-          <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
-          <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
-          <Button title="Report" onPress={() => Alert.alert('Thanks for reporting!')} />
-        </View>
->>>>>>> 8504008474c66c9859a44b76b77d62f351aee00e:Tradr/app/home.tsx
       </>
     </View >
 

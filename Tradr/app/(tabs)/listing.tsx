@@ -6,7 +6,6 @@ import { FIREBASE_STORAGE } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
-import { Picker } from '@react-native-picker/picker';
 
 export default function listing() {
   const router = useRouter();
@@ -32,6 +31,7 @@ export default function listing() {
       setImage(result.assets[0].uri);
     }
   };
+
   const takePicture = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

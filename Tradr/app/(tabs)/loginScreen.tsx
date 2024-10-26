@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, Text, TextInput, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
 import { useRouter, Redirect } from 'expo-router';
 import { FIREBASE_AUTH, FIREBASE_STORAGE } from '@/firebase.js';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getDatabase, set, ref as refDatabase } from 'firebase/database';
+import getLocation from '../location';
 
 //import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -36,7 +37,11 @@ const loginScreen = () => {
       name: userName,
       UserID: UID,
       email: userEmail,
-      Profile_Picture: placeholderImage
+      Profile_Picture: placeholderImage,
+      Profile_Rating: 0,
+      Profile_Latitude: 0,
+      Profile_Longitude: 0
+
     });
 
   }
@@ -94,6 +99,7 @@ const loginScreen = () => {
       style={styles.container}
       behavior="padding"
     >
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"

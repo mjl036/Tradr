@@ -1,14 +1,13 @@
-import { Alert, Text, StyleSheet, View, Button, Appearance, useColorScheme, Image, TouchableOpacity } from "react-native";
+import { Alert, Text, StyleSheet, View, Image, StatusBar } from "react-native";
 import { useRouter } from "expo-router";
-import { Link, Stack } from 'expo-router';
 import getLocation from '../location';
-import MyComponent from '../settings';
 import Swiper from 'react-native-deck-swiper';
 import data from '../placeholderimage';
 import React from 'react'
-import { signOut } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
-import { useState } from 'react';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { getDatabase, ref as dbRef, onValue, update } from 'firebase/database';
+import { getAuth } from "firebase/auth";
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
@@ -17,6 +16,18 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
     </View>
   );
 };
+
+const auth = getAuth();
+const user = auth.currentUser;
+const db = getDatabase();
+const refDB = dbRef(getDatabase());
+const userID = user?.uid;
+
+const updateLocation = () => {
+  update(dbRef(db, `users/${userID}/profileInfo`), {
+
+  })
+}
 
 
 export default function Index() {
@@ -43,7 +54,8 @@ export default function Index() {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} >
+      <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
       <Swiper
         cards={data}
         cardIndex={index}
@@ -103,8 +115,6 @@ export default function Index() {
         >
 
         </View>
-<<<<<<< HEAD:Tradr/app/(tabs)/home.tsx
-=======
         <View
           style={{
             flex: 1,
@@ -114,17 +124,9 @@ export default function Index() {
         >
 
         </View>
-        <View style={{}}>
-          <Button title="Go to Message Board" onPress={() => router.push("/messageBoard")} />
-          <Button title="Create Listing" onPress={() => router.push("/listing")} />
-          <Button title="Go to Settings" onPress={() => router.push("/settings")} />
-          <Button title="Go to Account Settings" onPress={() => router.push("/accountSettings")} />
-          <Button title="Logout" onPress={/*() => router.replace("/loginScreen")*/handleLogout} />
-          <Button title="Report" onPress={() => Alert.alert('Thanks for reporting!')} />
-        </View>
->>>>>>> 8504008474c66c9859a44b76b77d62f351aee00e:Tradr/app/home.tsx
+
       </>
-    </View >
+    </SafeAreaView >
 
   );
 }

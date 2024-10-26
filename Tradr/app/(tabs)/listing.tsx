@@ -86,7 +86,7 @@ export default function listing() {
 
     resetFields();
     await set(listingRef, cardData);
-    await set(globalListingRef, cardData);
+    //await set(globalListingRef, cardData);
 
     alert('Listing submitted!');
     router.replace("/home");
@@ -103,11 +103,13 @@ export default function listing() {
       </View>
 
 
+
       <TextInput
         style={{ height: 40, width: "60%", borderColor: 'gray', borderWidth: 5, padding: 5, backgroundColor: 'lightgrey', fontSize: 24, marginTop: 10 }}
         onChangeText={setTitle}
         value={title}
         placeholder="Enter Title"
+
       />
 
       <TextInput

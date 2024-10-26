@@ -1,8 +1,6 @@
-import { Alert, Text, StyleSheet, View, Button, Appearance, useColorScheme, Image, TouchableOpacity } from "react-native";
+import { Alert, Text, StyleSheet, View, Image, StatusBar, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
-import { Link, Stack } from 'expo-router';
 import getLocation from '../location';
-import MyComponent from '../settings';
 import Swiper from 'react-native-deck-swiper';
 import data from '../placeholderimage';
 import React from 'react';
@@ -11,10 +9,7 @@ import { signOut, getAuth } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
 import { useState, useEffect } from 'react';
 
-const db = getDatabase();
-const auth = getAuth();
-const user = auth.currentUser;
-const userID = user?.uid;
+
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
@@ -23,6 +18,18 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
     </View>
   );
 };
+
+const auth = getAuth();
+const user = auth.currentUser;
+const db = getDatabase();
+const refDB = dbRef(getDatabase());
+const userID = user?.uid;
+
+const updateLocation = () => {
+  update(dbRef(db, `users/${userID}/profileInfo`), {
+
+  })
+}
 
 
 export default function Index() {
@@ -72,7 +79,8 @@ export default function Index() {
     getAllListings();
 }, []);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} >
+      <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
       <Swiper
         cards={allListings}
         cardIndex={index}
@@ -133,7 +141,7 @@ export default function Index() {
 
         </View>
       </>
-    </View >
+    </SafeAreaView >
 
   );
 }

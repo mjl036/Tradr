@@ -1,9 +1,7 @@
-import { Text, View, Button } from "react-native";
-import { useRouter } from "expo-router";
+import { Text, Button } from "react-native";
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 
 
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
@@ -16,7 +14,7 @@ function darkModeUI() {
   };
 
   return (
-    
+
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Example Text

@@ -1,9 +1,8 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity, Modal, StatusBar, Alert } from "react-native";
 import React, { useEffect, useState } from 'react'
 import { getDatabase, ref as dbRef, onValue, update } from 'firebase/database';
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, updateEmail, updatePassword, updateProfile } from "firebase/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Modal as modalTest } from '../../component/Modal'
 import { router } from "expo-router";
 import * as ImagePicker from 'expo-image-picker';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -83,17 +82,39 @@ export default function accountSettings() {
 
     }
 
+    const changeEmail = (input: string) => {
+        if (user != null) {
+            updateEmail(user, input)
+        }
+
+    }
+
+    const changePassword = (input: string) => {
+        if (user != null) {
+            updatePassword(user, input);
+        }
+
+    }
+
 
     {/* This function is to set up all the data from the uploaded user information */ }
     const getUserData = () => {
-        const userRef = dbRef(db, `users/${userUID}/profileInfo`);
-        loaded = true;
-        onValue(userRef, (snapshot) => {
-            const data = snapshot.val();
-            setUserName(data.name);
-            setUserEmail(data.email);
-            setProfilePic(data.Profile_Picture);
-        })
+        if (user != null) {
+            const userRef = dbRef(db, `users/${userUID}/profileInfo`);
+            loaded = true;
+            onValue(userRef, (snapshot) => {
+                const data = snapshot.val();
+                // Sets data for the account info in the database
+                setUserName(data.name);
+                setUserEmail(data.email);
+                setProfilePic(data.Profile_Picture);
+
+                // Sets data for the AUTH dataset
+                updateProfile(user, { displayName: data.name, photoURL: data.Profile_Picture });
+                updateEmail(user, data.email);
+            })
+        }
+
 
     }
 
@@ -152,13 +173,9 @@ export default function accountSettings() {
                         <Text style={styles.buttonText}>Change Password</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} onPress={() => setImageModalVisible(true)}>
-                        <Text style={styles.buttonText}>Modal Test</Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} onPress={handlePress}>
-                        <Text style={styles.buttonText}>Change Test</Text>
-                    </TouchableOpacity>
+
+
 
                 </View>
 
@@ -178,10 +195,10 @@ export default function accountSettings() {
                             </View>
 
                             <View style={{ flexDirection: 'row', alignSelf: 'center', padding: 5 }}>
-                                <TouchableOpacity style={styles.button} onPress={takePicture}>
+                                <TouchableOpacity style={styles.modalButton} onPress={takePicture}>
                                     <Text style={styles.buttonText} >Take Picture</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={pickImage}>
+                                <TouchableOpacity style={styles.modalButton} onPress={pickImage}>
                                     <Text style={styles.buttonText} >Select From Folder</Text>
                                 </TouchableOpacity>
 
@@ -206,6 +223,7 @@ export default function accountSettings() {
 
                 </Modal>
 
+
             </SafeAreaView>
 
 
@@ -225,6 +243,19 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     button: {
+        backgroundColor: 'lightblue',
+        padding: 2,
+        justifyContent: 'center',
+        height: 50,
+        borderColor: '000022',
+        borderWidth: 3,
+        margin: 5,
+        borderRadius: 5,
+        width: '100%',
+        alignSelf: 'center'
+
+    },
+    modalButton: {
         backgroundColor: 'lightblue',
         padding: 2,
         justifyContent: 'center',

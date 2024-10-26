@@ -6,6 +6,7 @@ import { FIREBASE_STORAGE } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function listing() {
   const router = useRouter();
@@ -76,21 +77,24 @@ export default function listing() {
     const storageRef = ref(FIREBASE_STORAGE, `images/${imageFileName}`);
     const db = getDatabase();
     const listingRef = dbRef(db, `users/${userUID}/listings/` + imageFileName);
+    const globalListingRef = dbRef(db, `activeListings/` + imageFileName)
 
 
     await uploadBytes(storageRef, blob,);
     const imageUrl = await getDownloadURL(storageRef);
     const cardData = { userUID, title, description, imageUrl };
+
     resetFields();
     await set(listingRef, cardData);
+    await set(globalListingRef, cardData);
 
     alert('Listing submitted!');
-    router.push("../");
+    router.replace("/home");
   }
 
   return (
 
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={{ width: '80%', height: '60%', borderWidth: 2, borderColor: 'blue', flex: 1 }}>
         <Button title="Pick an image from camera roll" onPress={pickImage} />
         <Button title="Take a picture" onPress={takePicture} />
@@ -119,7 +123,8 @@ export default function listing() {
         onPress={handleSubmit}
         color='black'
       />
-    </View>
+    </SafeAreaView>
+
 
   );
 

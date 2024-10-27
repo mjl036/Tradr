@@ -90,6 +90,7 @@ export default function accountSettings() {
 
     }
 
+    {/* 
     const changeEmail = async (input: string) => {
         if (user != null) {
             await updateEmail(user, input);
@@ -100,6 +101,7 @@ export default function accountSettings() {
         }
 
     }
+    */}
 
     const changeUserName = (input: string) => {
         if (user != null) {
@@ -134,8 +136,6 @@ export default function accountSettings() {
                 setProfilePic(data.Profile_Picture);
 
                 // Sets data for the AUTH dataset
-                updateProfile(user, { displayName: data.name, photoURL: data.Profile_Picture });
-                updateEmail(user, data.email);
             })
         }
 
@@ -193,7 +193,8 @@ export default function accountSettings() {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Password Box */}
+                    {/* 
+                    {/* Password Box }
                     <View style={styles.inputBox}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', alignSelf: 'center', }}>PASSWORD</Text>
                         <TextInput
@@ -213,7 +214,7 @@ export default function accountSettings() {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Email Box */}
+                    {/* Email Box }
                     <View style={styles.inputBox}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', alignSelf: 'center', }}>EMAIL</Text>
 
@@ -228,7 +229,7 @@ export default function accountSettings() {
                             <Text style={styles.buttonText}>Change Email</Text>
                         </TouchableOpacity>
                     </View>
-
+                    */}
 
 
 

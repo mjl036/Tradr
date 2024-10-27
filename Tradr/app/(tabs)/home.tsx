@@ -47,16 +47,16 @@ export default function Index() {
     const usersRef = dbRef(db, 'users');
     const currentUserID = auth.currentUser?.uid;
     const imageCards = [];
-  
+
     onValue(usersRef, (snapshot) => {
       const usersData = snapshot.val();
-  
+
       for (let userID in usersData) {
         if (userID === currentUserID) {
           // Skip the current user’s listings
           continue;
         }
-  
+
         const userListings = usersData[userID].listings;
         if (userListings) {
           for (let listingID in userListings) {
@@ -71,20 +71,21 @@ export default function Index() {
           }
         }
       }
-  
+
       setAllListings(imageCards);
     });
-}
-    useEffect(() => {
+  }
+  useEffect(() => {
     getAllListings();
-}, []);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
       <Swiper
         cards={allListings}
         cardIndex={index}
-        renderCard={(card) => card ? <Card card={card} /> :null}
+        renderCard={(card) => card ? <Card card={card} /> : null}
         onSwiper={onSwiped}
         disableBottomSwipe
         disableTopSwipe

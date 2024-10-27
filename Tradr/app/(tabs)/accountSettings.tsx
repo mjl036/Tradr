@@ -90,9 +90,9 @@ export default function accountSettings() {
 
     }
 
-    const changeEmail = (input: string) => {
+    const changeEmail = async (input: string) => {
         if (user != null) {
-            updateEmail(user, input);
+            await updateEmail(user, input);
             update(dbRef(db, `users/${userUID}/profileInfo`), {
                 email: input
             })

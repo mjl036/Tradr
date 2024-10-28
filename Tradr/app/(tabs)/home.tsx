@@ -1,4 +1,4 @@
-import { Alert, Text, StyleSheet, View, Image, StatusBar, SafeAreaView } from "react-native";
+import { Alert, Text, StyleSheet, View, Image, ImageBackground, StatusBar, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
 import getLocation from '../location';
 import Swiper from 'react-native-deck-swiper';
@@ -8,13 +8,21 @@ import { getDatabase, ref as dbRef, onValue, update } from 'firebase/database';
 import { signOut, getAuth } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
 import { useState, useEffect } from 'react';
+import listing from "./listing";
 
 
 
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: card.image }} style={styles.cardImage} />
+    <View style={styles.container}>
+      <View style={styles.card}>
+        <ImageBackground source={{ uri: card.image }} style={styles.cardImage}>
+          <View style={styles.textOverlay}>
+            <Text style={styles.cardTitle}>{card.title}</Text>
+            <Text style={styles.cardDescription}>{card.description}</Text>
+          </View>
+        </ImageBackground>
+      </View>
     </View>
   );
 };
@@ -128,11 +136,8 @@ export default function Index() {
 
           }
         }}
-        r />
+         />
       <>
-        <View>
-          <Text>This was the Index/Home Screen.</Text>
-        </View>
         <View
           style={{
             flex: 1,
@@ -149,24 +154,42 @@ export default function Index() {
 const styles = StyleSheet.create({ //Styling to get the card to display on page
   container: {
     flex: 1,
-    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center'
   },
   card: {
-    borderRadius: 8,
-    shadowRadius: 25,
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 0 },
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
+    width: '95%',
+    height:'95%',
+    borderRadius: 10,
+
+    shadowRadius: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.50,
+    shadowOffset: { width: 0, height: 5 },
+  
+    elevation:30,
   },
   cardImage: {
-    width: '50%',
-    height: '80%',
-    resizeMode: 'contain'
-  }
+    width: '100%',
+    height: '100%',
+    borderRadius: 30,
+    overflow: 'hidden',
+    justifyContent: 'flex-end',
+  },
+  textOverlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // Semi-transparent overlay
+    padding: 10,
+    alignItems: 'flex-start',
+  },
+  cardTitle: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  cardDescription: {
+    fontSize: 14,
+    color: 'white',
+    marginTop: 5,
+  },
 
 });

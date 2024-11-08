@@ -89,8 +89,6 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container} >
-            <Button title="View Target Profile">
-            </Button>
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
       <Swiper
         cards={allListings}
@@ -141,6 +139,8 @@ export default function Index() {
         }}
          />
       <>
+      <Button title="View Target Profile">
+      </Button>
         <View
           style={{
             flex: 1,

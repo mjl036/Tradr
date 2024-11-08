@@ -6,7 +6,7 @@ import Slider from '@react-native-community/slider';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed';
  
 // not final code, testing the example
-class Example extends settings {
+class Example extends Component {
   render() {
     let data = [{
       value: 'Banana',
@@ -15,31 +15,27 @@ class Example extends settings {
     }, {
       value: 'Pear',
     }];
- 
-    return (
-      <SafeAreaView>
-        <Dropdown
-          icon='chevron-down'
-          iconColor='#E1E1E1'
-          label='Favorite Fruit'
-          data={data}
-        />
-        </SafeAreaView>
-    );
   }
 }
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
 function darkModeUI() {
+  
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
-
+  
   return (
 
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
+        <Dropdown
+          icon='chevron-down'
+          iconColor='#E1E1E1'
+          label='Favorite Fruit'
+          data={data}
+        />
       <Button title="Toggle Notifications">
 
       </Button>

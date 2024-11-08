@@ -27,16 +27,19 @@ function darkModeUI() {
   return (
 
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
+      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
+      How far out would you like to see listings?
+      </Text>
       <Slider
-  style={{width: 200, height: 40}}
-  minimumValue={0}
-  maximumValue={1}
-  minimumTrackTintColor="#FFFFFF"
-  maximumTrackTintColor="#000000"
-/>
+        style={{width: 350, height: 50}}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+      />
 
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Does this work
+        Example Test
       </Text>
       <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
     </SafeAreaView>

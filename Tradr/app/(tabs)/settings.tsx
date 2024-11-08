@@ -6,7 +6,7 @@ import Slider from '@react-native-community/slider';
 import { Dropdown } from 'react-native-material-dropdown-v2-fixed';
  
 // not final code, testing the example
-class Example extends Component {
+class Example extends settings {
   render() {
     let data = [{
       value: 'Banana',

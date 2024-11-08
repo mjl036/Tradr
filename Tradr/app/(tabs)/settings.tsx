@@ -17,7 +17,7 @@ class Example extends Component {
     }];
  
     return (
-      <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
+      <SafeAreaView>
         <Dropdown
           icon='chevron-down'
           iconColor='#E1E1E1'

@@ -27,6 +27,14 @@ function darkModeUI() {
   return (
 
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
+      <Slider
+  style={{width: 200, height: 40}}
+  minimumValue={0}
+  maximumValue={1}
+  minimumTrackTintColor="#FFFFFF"
+  maximumTrackTintColor="#000000"
+/>
+
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Does this work
       </Text>

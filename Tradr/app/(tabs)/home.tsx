@@ -163,9 +163,9 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
   card: {
     width: '95%',
     height:'95%',
-    borderRadius: 10,
+    borderRadius: 4,
 
-    shadowRadius: 10,
+    shadowRadius: 4,
     shadowColor: 'black',
     shadowOpacity: 0.50,
     shadowOffset: { width: 0, height: 5 },

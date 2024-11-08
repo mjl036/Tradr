@@ -28,7 +28,7 @@ function darkModeUI() {
 
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Example Text
+        Does this work
       </Text>
       <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
     </SafeAreaView>

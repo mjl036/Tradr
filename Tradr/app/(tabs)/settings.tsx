@@ -27,6 +27,9 @@ function darkModeUI() {
   return (
 
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
+      <Button title="Toggle Notifications">
+        
+      </Button>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
       How far out would you like to see listings?
       </Text>

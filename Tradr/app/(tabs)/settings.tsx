@@ -55,42 +55,42 @@ function darkModeUI() {
   );
 }
 
-const Demo = () => {
-  const emojisWithIcons = [
-    {title: 'happy', icon: 'emoticon-happy-outline'},
-    {title: 'cool', icon: 'emoticon-cool-outline'},
-    {title: 'lol', icon: 'emoticon-lol-outline'},
-    {title: 'sad', icon: 'emoticon-sad-outline'},
-    {title: 'cry', icon: 'emoticon-cry-outline'},
-    {title: 'angry', icon: 'emoticon-angry-outline'},
-    {title: 'confused', icon: 'emoticon-confused-outline'},
-    {title: 'excited', icon: 'emoticon-excited-outline'},
-    {title: 'kiss', icon: 'emoticon-kiss-outline'},
-    {title: 'devil', icon: 'emoticon-devil-outline'},
-    {title: 'dead', icon: 'emoticon-dead-outline'},
-    {title: 'wink', icon: 'emoticon-wink-outline'},
-    {title: 'sick', icon: 'emoticon-sick-outline'},
-    {title: 'frown', icon: 'emoticon-frown-outline'},
-  ];
+const Demo2 = () => {
+  const [feelings, setFeelings] = useState([]);
+  const [moods, setMoods] = useState([]);
+
+  const moodDropdownRef = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFeelings([
+        {title: 'positive', moods: [{title: 'Happy'}, {title: 'lol'}]},
+        {title: 'negative', moods: [{title: 'Sad'}, {title: 'Angry'}]},
+      ]);
+    }, 1000);
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTxt}>Demo</Text>
+        <Text style={styles.headerTxt}>Demo 2</Text>
       </View>
+      <View style={{width: 16}} />
       <SelectDropdown
-        data={emojisWithIcons}
+        data={feelings}
         onSelect={(selectedItem, index) => {
           console.log(selectedItem, index);
+          moodDropdownRef.current.reset();
+          setMoods([]);
+          setMoods(selectedItem.moods);
+          // setTimeout(() => {
+          //   moodDropdownRef.current.selectIndex(1);
+          // }, 250);
         }}
         renderButton={(selectedItem, isOpen) => {
           return (
             <View style={styles.dropdownButtonStyle}>
-              {selectedItem && <Icon name={selectedItem.icon} style={styles.dropdownButtonIconStyle} />}
-              <Text style={styles.dropdownButtonTxtStyle}>
-                {(selectedItem && selectedItem.title) || 'Select your mood'}
-              </Text>
-              <Icon name={isOpen ? 'chevron-up' : 'chevron-down'} style={styles.dropdownButtonArrowStyle} />
+              <Text style={styles.dropdownButtonTxtStyle}>{selectedItem?.title || 'Select a feeling'}</Text>
             </View>
           );
         }}
@@ -101,21 +101,47 @@ const Demo = () => {
                 ...styles.dropdownItemStyle,
                 ...(isSelected && {backgroundColor: '#D2D9DF'}),
               }}>
-              <Icon name={item.icon} style={styles.dropdownItemIconStyle} />
               <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
             </View>
           );
         }}
-        showsVerticalScrollIndicator={false}
         dropdownStyle={styles.dropdownMenuStyle}
       />
+      <View style={{width: 8}} />
+      <SelectDropdown
+        ref={moodDropdownRef}
+        data={moods}
+        onSelect={(selectedItem, index) => {
+          console.log(selectedItem, index);
+        }}
+        renderButton={(selectedItem, isOpen) => {
+          return (
+            <View style={styles.dropdownButtonStyle}>
+              <Text style={styles.dropdownButtonTxtStyle}>{selectedItem?.title || 'Select a mood'}</Text>
+            </View>
+          );
+        }}
+        renderItem={(item, index, isSelected) => {
+          return (
+            <View
+              style={{
+                ...styles.dropdownItemStyle,
+                ...(isSelected && {backgroundColor: '#D2D9DF'}),
+              }}>
+              <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
+            </View>
+          );
+        }}
+        dropdownStyle={styles.dropdownMenuStyle}
+      />
+      <View style={{width: 16}} />
     </View>
   );
 };
 
-export default Demo;
+export default Demo2;
 
-// This is the style sheet for the dark and light modes (above), so don't touch really
+
 const styles = StyleSheet.create({
   lightContainer: {
     flex: 1,
@@ -135,73 +161,70 @@ const styles = StyleSheet.create({
   darkText: {
     color: 'white',
   },
-  container: {
-    flex: 1,
-    paddingVertical: 100,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    paddingTop: 90,
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    height: 90,
-    backgroundColor: '#E9ECEF',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingBottom: 16,
-  },
-  headerTxt: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#151E26',
-  },
-  dropdownButtonStyle: {
-    width: 200,
-    height: 50,
-    backgroundColor: '#E9ECEF',
-    borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-  },
-  dropdownButtonTxtStyle: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#151E26',
-  },
-  dropdownButtonArrowStyle: {
-    fontSize: 28,
-  },
-  dropdownButtonIconStyle: {
-    fontSize: 28,
-    marginRight: 8,
-  },
-  dropdownMenuStyle: {
-    backgroundColor: '#E9ECEF',
-    borderRadius: 8,
-  },
-  dropdownItemStyle: {
-    width: '100%',
-    flexDirection: 'row',
-    paddingHorizontal: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  dropdownItemTxtStyle: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#151E26',
-  },
-  dropdownItemIconStyle: {
-    fontSize: 28,
-    marginRight: 8,
-  },
+    container: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    header: {
+      position: 'absolute',
+      top: 0,
+      width: '100%',
+      height: 90,
+      backgroundColor: '#E9ECEF',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      paddingBottom: 16,
+    },
+    headerTxt: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#151E26',
+    },
+    dropdownButtonStyle: {
+      flex: 1,
+      height: 50,
+      backgroundColor: '#E9ECEF',
+      borderRadius: 12,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 12,
+    },
+    dropdownButtonTxtStyle: {
+      flex: 1,
+      fontSize: 18,
+      fontWeight: '500',
+      color: '#151E26',
+      textAlign: 'center',
+    },
+    dropdownMenuStyle: {
+      backgroundColor: '#E9ECEF',
+      borderRadius: 8,
+      height: 100,
+    },
+    dropdownItemStyle: {
+      width: '100%',
+      height: 50,
+      flexDirection: 'row',
+      paddingHorizontal: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderBottomWidth: 1,
+      borderBottomColor: '#B1BDC8',
+    },
+    dropdownItemTxtStyle: {
+      flex: 1,
+      fontSize: 18,
+      fontWeight: '500',
+      color: '#151E26',
+      textAlign: 'center',
+    },
+    dropdownItemIconStyle: {
+      fontSize: 28,
+      marginRight: 8,
+    },
 });
 
 export default darkModeUI;

@@ -5,7 +5,7 @@ import { useColorScheme } from 'react-native';
 import Slider from '@react-native-community/slider';
 import SelectDropdown from 'react-native-select-dropdown';
  
-
+const distance = slider.value;
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
 function darkModeUI() {
   
@@ -24,7 +24,7 @@ function darkModeUI() {
         title="Toggle Notifications"
       />
       <Text>
-      {"{"}slider.value{"}"}
+      {"{"}distance{"}"}
       </Text>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
       How far out would you like to see listings?

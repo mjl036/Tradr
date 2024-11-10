@@ -49,6 +49,7 @@ export default function Index() {
     setIndex((index + 1) % data.length);
   };
   const [profileModalVisible, setProfileModalVisible] = useState(false);
+  setProfileModalVisible(false);
 
   const [allListings, setAllListings] = useState([]);
 

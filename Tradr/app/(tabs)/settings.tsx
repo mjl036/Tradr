@@ -28,8 +28,8 @@ function darkModeUI() {
       </Text>
       <Slider
         style={{width: 350, height: 50}}
-        minimumValue={0}
-        maximumValue={1}
+        minimumValue={1}
+        maximumValue={500}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
       />
@@ -38,8 +38,9 @@ function darkModeUI() {
       </Text>
       <Slider
         style={{width: 350, height: 50}}
-        minimumValue={0.2}
+        minimumValue={0}
         maximumValue={1}
+        lowerLimit={0.2}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
         step={0.2}

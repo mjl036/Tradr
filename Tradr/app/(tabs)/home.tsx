@@ -103,7 +103,6 @@ export default function Index() {
   }, []);
   return (
     <SafeAreaView style={styles.container} >
-      <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>
         <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
         <Swiper
           cards={allListings}
@@ -163,7 +162,6 @@ export default function Index() {
           >
           </View>
         </>
-      </Modal>
       <Button
         onPress={setProfileModalVisible(true)}
         title="Modal"

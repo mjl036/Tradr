@@ -66,8 +66,6 @@ const Example = () => {
 
   return (
     <Dropdown
-      icon='chevron-down'
-      iconColor='#E1E1E1'
       label='favorite fruit'
       data={data}
     />

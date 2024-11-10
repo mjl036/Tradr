@@ -141,13 +141,8 @@ export default function Index() {
         onPress={() => setProfileModalVisible(true)}
         title="modal"
       />
-      <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for future purposes'); setProfileModalVisible(!profileModalVisible);}}>
+      <Modal animationType="slide" transparent={false} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for future purposes'); setProfileModalVisible(!profileModalVisible);}}>
         <SafeAreaView style={{ backgroundColor: 'blue' }}>
-            <View style={{ height: '90%', alignItems: 'center' }}>
-              <Text style={{ fontSize: 90, color: 'white' }}>{title}</Text>
-              <Image source={{ uri: image }} style={{ width: '80%', height: '70%', marginBottom: 20, borderColor: 'black', borderWidth: 6, borderRadius: 20 }} />
-              <Text style={styles.fullScreenDescBox}>{description}</Text>
-            </View>
           <Button
             onPress={() => setProfileModalVisible(!profileModalVisible)}
             title="modal2"

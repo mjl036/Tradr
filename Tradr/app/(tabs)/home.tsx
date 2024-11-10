@@ -140,7 +140,6 @@ export default function Index() {
       <TouchableOpacity
         onPress={() => setProfileModalVisible(true)}
         title="modal"
-        style={styles.profileModal}
       />
       <Modal animationType="slide" transparent={false} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for future purposes'); setProfileModalVisible(!profileModalVisible);}}>
         <SafeAreaView style={{ backgroundColor: 'blue' }}>

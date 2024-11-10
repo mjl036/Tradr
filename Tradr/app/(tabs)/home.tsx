@@ -1,4 +1,4 @@
-import { Alert, Text, StyleSheet, View, Image, ImageBackground, StatusBar, SafeAreaView , Button, Modal } from "react-native";
+import { Alert, Text, StyleSheet, View, Image, ImageBackground, StatusBar, SafeAreaView , Button, Modal, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import getLocation from '../location';
 import Swiper from 'react-native-deck-swiper';

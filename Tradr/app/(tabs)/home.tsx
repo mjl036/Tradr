@@ -88,6 +88,10 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
+      <Button
+        onPress={() => setProfileModalVisible(true)}
+        title="modal"
+      />
           <Swiper
             cards={allListings}
             cardIndex={index}
@@ -143,10 +147,6 @@ export default function Index() {
           title="modal2"
         />
       </Modal>
-      <Button
-        onPress={() => setProfileModalVisible(true)}
-        title="modal"
-      />
     </SafeAreaView >
 
   );

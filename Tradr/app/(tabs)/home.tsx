@@ -48,8 +48,6 @@ export default function Index() {
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
-  const [profileModalVisible, setProfileModalVisible] = useState(false);
-  setProfileModalVisible(false);
 
   const [allListings, setAllListings] = useState([]);
 

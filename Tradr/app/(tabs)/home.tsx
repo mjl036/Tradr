@@ -88,65 +88,65 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
-      <Swiper
-        cards={allListings}
-        cardIndex={index}
-        renderCard={(card) => card ? <Card card={card} /> : null}
-        onSwiper={onSwiped}
-        disableBottomSwipe
-        disableTopSwipe
-        animateOverlayLabelsOpacity //Syling for swipe
-        infinite
-        overlayLabels={{
-          left:
-          {
-            title: 'Not interested',
-            style: {
-              label: {
-                backgroundColor: 'red',
-                color: 'white',
-                fontSize: 18
+        <Modal animationType="slide" trasnparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for future purposes'); setProfileModalVisible(!profileModalVisible);}}>
+          <Swiper
+            cards={allListings}
+            cardIndex={index}
+            renderCard={(card) => card ? <Card card={card} /> : null}
+            onSwiper={onSwiped}
+            disableBottomSwipe
+            disableTopSwipe
+            animateOverlayLabelsOpacity //Syling for swipe
+            infinite
+            overlayLabels={{
+              left:
+              {
+                title: 'Not interested',
+                style: {
+                  label: {
+                    backgroundColor: 'red',
+                    color: 'white',
+                    fontSize: 18
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    marginTop: 20,
+                    marginLeft: -20
+                  }
+                }
               },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-start',
-                marginTop: 20,
-                marginLeft: -20
+              right: {
+                title: 'Interested',
+                style: {
+                  label: {
+                    backgroundColor: 'green',
+                    color: 'white',
+                    fontSize: 18
+                  },
+                  wrapper: {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    marginTop: 20,
+                    marginLeft: 20
+                  }
+                }
               }
-            }
-          },
-          right: {
-            title: 'Interested',
-            style: {
-              label: {
-                backgroundColor: 'green',
-                color: 'white',
-                fontSize: 18
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                marginTop: 20,
-                marginLeft: 20
-              }
-            }
-          }
-        }}
-        />
-      <>
+            }}
+            />
+          <>
+        </>
       <Button
         onPress={() => setProfileModalVisible(!profileModalVisible)}
         title="modal2"
       />
-      </>
-      <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>
-        <Button
-          onPress={() => setProfileModalVisible(true)}
-          title="Modal"
-        />
       </Modal>
+      <Button
+        onPress={() => setProfileModalVisible(true)}
+        title="modal"
+      />
     </SafeAreaView >
 
   );

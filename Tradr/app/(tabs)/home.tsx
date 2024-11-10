@@ -38,7 +38,7 @@ const updateLocation = () => {
 
   })
 }
-const [profileModalVisible, setProfileModalVisible] = useState(false);
+
 
 export default function Index() {
   const router = useRouter();
@@ -50,6 +50,7 @@ export default function Index() {
   };
 
   const [allListings, setAllListings] = useState([]);
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');

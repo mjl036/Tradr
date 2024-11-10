@@ -147,7 +147,7 @@ export default function Index() {
           <TouchableOpacity
             onPress={() => setProfileModalVisible(!profileModalVisible)}
             title="Back"
-            
+
           />
         </SafeAreaView>
       </Modal>
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
     marginTop: 5,
   },
   profileModal: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3',
+    elevation: 10,
+    backgroundColor: 'rgba(256, 0, 0, 1',
     padding: 10,
     alignItems: 'flex-start'
   }

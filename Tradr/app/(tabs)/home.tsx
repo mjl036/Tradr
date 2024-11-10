@@ -91,7 +91,7 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container} >
-      <Modal style={{}} visible={profileModalVisible} animationType='slide' onRequestClose={() => setProfileModalVisible(false)}>
+
         <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
         <Swiper
           cards={allListings}
@@ -152,12 +152,7 @@ export default function Index() {
 
           </View>
         </>
-      </Modal>
-      <View style={{ flex: 1, alignSelf: 'center', width: '100%' }}>
-          <TouchableOpacity style={styles.button} onPress={() => setProfileModalVisible(true)}>
-            <Text style={styles.buttonText}>Create New Listing</Text>
-          </TouchableOpacity>
-        </View>
+
     </SafeAreaView >
 
   );

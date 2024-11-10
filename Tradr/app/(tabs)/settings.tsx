@@ -32,8 +32,11 @@ function darkModeUI() {
         maximumValue={1}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
+        step={20}
       />
-
+      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
+      What minimum rating would you like potential matches to be?
+      </Text>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Example Text
       </Text>

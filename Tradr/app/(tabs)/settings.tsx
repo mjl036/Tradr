@@ -32,6 +32,7 @@ function darkModeUI() {
         maximumValue={500}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
+        renderStepNumber='true'
       />
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
       What minimum rating would you like potential matches to be?
@@ -53,6 +54,26 @@ function darkModeUI() {
     </SafeAreaView>
   );
 }
+
+const Example = () => {
+  let data = [{
+    value: 'Banana',
+  }, {
+    value: 'mango',
+  }, {
+    value: 'pear',
+  }];
+
+  return (
+    <Dropdown
+      icon='chevron-down'
+      iconColor='#E1E1E1'
+      label='favorite fruit'
+      data={data}
+    />
+  )
+}
+
 // This is the style sheet for the dark and light modes (above), so don't touch really
 const styles = StyleSheet.create({
   lightContainer: {

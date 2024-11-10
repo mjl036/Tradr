@@ -1,4 +1,4 @@
-import { Alert, Text, StyleSheet, View, Image, ImageBackground, StatusBar, SafeAreaView , Button } from "react-native";
+import { Alert, Text, StyleSheet, View, Image, ImageBackground, StatusBar, SafeAreaView , Button, Modal } from "react-native";
 import { useRouter } from "expo-router";
 import getLocation from '../location';
 import Swiper from 'react-native-deck-swiper';
@@ -47,6 +47,7 @@ export default function Index() {
   const [index, setIndex] = React.useState(0);
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
   };
 
   const [allListings, setAllListings] = useState([]);
@@ -89,66 +90,68 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container} >
-      <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
-      <Swiper
-        cards={allListings}
-        cardIndex={index}
-        renderCard={(card) => card ? <Card card={card} /> : null}
-        onSwiper={onSwiped}
-        disableBottomSwipe
-        disableTopSwipe
-        animateOverlayLabelsOpacity //Syling for swipe
-        infinite
-        overlayLabels={{
-          left:
-          {
-            title: 'Not interested',
-            style: {
-              label: {
-                backgroundColor: 'red',
-                color: 'white',
-                fontSize: 18
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-start',
-                marginTop: 20,
-                marginLeft: -20
+      <Modal style={{}} visible={profileModalVisible} animationType='slide' onRequestClose={() => setProfileModalVisible(false)}>
+        <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
+        <Swiper
+          cards={allListings}
+          cardIndex={index}
+          renderCard={(card) => card ? <Card card={card} /> : null}
+          onSwiper={onSwiped}
+          disableBottomSwipe
+          disableTopSwipe
+          animateOverlayLabelsOpacity //Syling for swipe
+          infinite
+          overlayLabels={{
+            left:
+            {
+              title: 'Not interested',
+              style: {
+                label: {
+                  backgroundColor: 'red',
+                  color: 'white',
+                  fontSize: 18
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-start',
+                  marginTop: 20,
+                  marginLeft: -20
+                }
               }
-            }
-          },
-          right: {
-            title: 'Interested',
-            style: {
-              label: {
-                backgroundColor: 'green',
-                color: 'white',
-                fontSize: 18
-              },
-              wrapper: {
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                marginTop: 20,
-                marginLeft: 20
+            },
+            right: {
+              title: 'Interested',
+              style: {
+                label: {
+                  backgroundColor: 'green',
+                  color: 'white',
+                  fontSize: 18
+                },
+                wrapper: {
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                  marginTop: 20,
+                  marginLeft: 20
+                }
               }
-            }
 
-          }
-        }}
-         />
-      <>
-      <Button title="View Target Profile">
-      </Button>
-        <View
-          style={{
-            flex: 1,
+            }
           }}
-        >
+          />
+        <>
+        <Button title="View Target Profile">
+        </Button>
+          <View
+            style={{
+              flex: 1,
+            }}
+          >
 
-        </View>
-      </>
+          </View>
+        </>
+      </Modal>
     </SafeAreaView >
 
   );

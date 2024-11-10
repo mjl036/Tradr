@@ -115,7 +115,26 @@ const Demo = () => {
 
 export default Demo;
 
+// This is the style sheet for the dark and light modes (above), so don't touch really
 const styles = StyleSheet.create({
+  lightContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  darkContainer: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightText: {
+    color: 'black',
+  },
+  darkText: {
+    color: 'white',
+  },
   container: {
     flex: 1,
     paddingVertical: 100,
@@ -182,28 +201,6 @@ const styles = StyleSheet.create({
   dropdownItemIconStyle: {
     fontSize: 28,
     marginRight: 8,
-  },
-});
-
-// This is the style sheet for the dark and light modes (above), so don't touch really
-const styles = StyleSheet.create({
-  lightContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  darkContainer: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  lightText: {
-    color: 'black',
-  },
-  darkText: {
-    color: 'white',
   },
 });
 

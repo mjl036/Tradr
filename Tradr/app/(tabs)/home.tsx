@@ -47,8 +47,8 @@ export default function Index() {
   const [index, setIndex] = React.useState(0);
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
-  const [profileModalVisible, setProfileModalVisible] = useState(false);
   };
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
 
   const [allListings, setAllListings] = useState([]);
 

@@ -11,7 +11,6 @@ import { useState, useEffect } from 'react';
 import listing from "./listing";
 
 
-
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
     <View style={styles.container}>
@@ -50,7 +49,6 @@ export default function Index() {
   };
 
   const [allListings, setAllListings] = useState([]);
-  const [profileModalVisible, setProfileModalVisible] = useState(false);
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');
@@ -87,7 +85,7 @@ export default function Index() {
   useEffect(() => {
     getAllListings();
   }, []);
-
+  const [profileModalVisible, setProfileModalVisible] = useState(false)
   return (
     <SafeAreaView style={styles.container} >
       <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>

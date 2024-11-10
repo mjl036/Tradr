@@ -17,7 +17,7 @@ const ModalPage = () => {
     <SafeAreaView>
       <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>
         <Button
-          onPress={Alert.alert("Congrats")}
+          onPress={() => setProfileModalVisible(!profileModalVisible)}
         />
       </Modal>
       <Button

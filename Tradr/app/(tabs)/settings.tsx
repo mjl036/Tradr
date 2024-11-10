@@ -20,9 +20,12 @@ function darkModeUI() {
 
     <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
         
-      <Button title="Toggle Notifications">
-
-      </Button>
+      <Button 
+        title="Toggle Notifications"
+      />
+      <Text>
+      {"{"}slider.value{"}"}
+      </Text>
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
       How far out would you like to see listings?
       </Text>
@@ -32,7 +35,6 @@ function darkModeUI() {
         maximumValue={500}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
-        renderStepNumber='true'
       />
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
       What minimum rating would you like potential matches to be?

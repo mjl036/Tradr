@@ -42,7 +42,7 @@ function darkModeUI() {
         maximumValue={1}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
-        step={20}
+        step={0.2}
       />
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Example Text

@@ -27,7 +27,6 @@ const ModalPage = () => {
     </SafeAreaView>
   );
 };
-export default ModalPage;
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
     <View style={styles.container}>
@@ -55,7 +54,7 @@ const updateLocation = () => {
   })
 }
 
-
+export default ModalPage;
 export default function Index() {
   const router = useRouter();
   const auth = FIREBASE_AUTH;

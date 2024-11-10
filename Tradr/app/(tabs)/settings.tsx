@@ -32,11 +32,18 @@ function darkModeUI() {
         maximumValue={1}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
-        step={20}
       />
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
       What minimum rating would you like potential matches to be?
       </Text>
+      <Slider
+        style={{width: 350, height: 50}}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+        step={20}
+      />
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Example Text
       </Text>

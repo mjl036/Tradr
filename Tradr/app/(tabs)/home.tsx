@@ -137,7 +137,7 @@ export default function Index() {
             />
           <>
         </>
-      <TouchableOpacity
+      <Button
         onPress={() => setProfileModalVisible(true)}
         title="modal"
       />

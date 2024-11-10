@@ -21,7 +21,7 @@ const ModalPage = () => {
         />
       </Modal>
       <Button
-        onPress={setProfileModalVisible(true)}
+        onPress={() => setProfileModalVisible(true)}
         title="Modal"
       />
     </SafeAreaView>
@@ -163,7 +163,7 @@ export default function Index() {
           </View>
         </>
       <Button
-        onPress={setProfileModalVisible(true)}
+        onPress={() => setProfileModalVisible(true)}
         title="Modal"
       />
     </SafeAreaView >

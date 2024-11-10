@@ -32,6 +32,7 @@ const user = auth.currentUser;
 const db = getDatabase();
 const refDB = dbRef(getDatabase());
 const userID = user?.uid;
+const [profileModalVisible, setProfileModalVisible] = useState(false);
 
 const updateLocation = () => {
   update(dbRef(db, `users/${userID}/profileInfo`), {
@@ -89,7 +90,7 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container} >
-
+      <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>
         <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
         <Swiper
           cards={allListings}
@@ -147,10 +148,15 @@ export default function Index() {
               flex: 1,
             }}
           >
-
           </View>
         </>
-
+      </Modal>
+      <Button>
+        onPress={() => setProfileModalVisible(true)}
+        <Text>
+          "Open Modal"
+        </Text>
+      </Button>
     </SafeAreaView >
 
   );

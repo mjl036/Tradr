@@ -32,7 +32,6 @@ const user = auth.currentUser;
 const db = getDatabase();
 const refDB = dbRef(getDatabase());
 const userID = user?.uid;
-const [profileModalVisible, setProfileModalVisible] = useState(false);
 
 const updateLocation = () => {
   update(dbRef(db, `users/${userID}/profileInfo`), {
@@ -51,6 +50,7 @@ export default function Index() {
   };
 
   const [allListings, setAllListings] = useState([]);
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');

@@ -11,6 +11,22 @@ import { useState, useEffect } from 'react';
 import listing from "./listing";
 
 
+const ModalPage = () => {
+  const [profileModalVisible, setProfileModalVisible] = useState(false)
+  return (
+    <SafeAreaView>
+      <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>
+        <Button
+          onPress={Alert.alert("Congrats")}
+        />
+      </Modal>
+      <Button
+        onPress={setProfileModalVisible(true)}
+        title="Modal"
+      />
+    </SafeAreaView>
+  );
+};
 const Card = ({ card }) => { //creates my card item that takes the card image from the url listed in data array
   return (
     <View style={styles.container}>
@@ -85,7 +101,6 @@ export default function Index() {
   useEffect(() => {
     getAllListings();
   }, []);
-  const [profileModalVisible, setProfileModalVisible] = useState(false)
   return (
     <SafeAreaView style={styles.container} >
       <Modal animationType="slide" transparent={true} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for purposes.'); setProfileModalVisible(!profileModalVisible);}}>

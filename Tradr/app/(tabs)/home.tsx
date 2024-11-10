@@ -151,12 +151,10 @@ export default function Index() {
           </View>
         </>
       </Modal>
-      <Button>
-        onPress={() => setProfileModalVisible(true)}
-        <Text>
-          "Open Modal"
-        </Text>
-      </Button>
+      <Button
+        onPress={setProfileModalVisible(true)}
+        title="Modal"
+      />
     </SafeAreaView >
 
   );

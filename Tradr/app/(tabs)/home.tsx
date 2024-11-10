@@ -137,15 +137,17 @@ export default function Index() {
             />
           <>
         </>
-      <Button
+      <TouchableOpacity
         onPress={() => setProfileModalVisible(true)}
         title="modal"
+        style={styles.profileModal}
       />
       <Modal animationType="slide" transparent={false} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for future purposes'); setProfileModalVisible(!profileModalVisible);}}>
         <SafeAreaView style={{ backgroundColor: 'blue' }}>
-          <Button
+          <TouchableOpacity
             onPress={() => setProfileModalVisible(!profileModalVisible)}
-            title="modal2"
+            title="Back"
+            
           />
         </SafeAreaView>
       </Modal>
@@ -194,5 +196,10 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
     color: 'white',
     marginTop: 5,
   },
+  profileModal: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3',
+    padding: 10,
+    alignItems: 'flex-start'
+  }
 
 });

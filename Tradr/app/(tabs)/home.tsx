@@ -153,6 +153,11 @@ export default function Index() {
           </View>
         </>
       </Modal>
+      <View style={{ flex: 1, alignSelf: 'center', width: '100%' }}>
+          <TouchableOpacity style={styles.button} onPress={() => setProfileModalVisible(true)}>
+            <Text style={styles.buttonText}>Create New Listing</Text>
+          </TouchableOpacity>
+        </View>
     </SafeAreaView >
 
   );

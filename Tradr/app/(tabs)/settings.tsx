@@ -38,11 +38,12 @@ function darkModeUI() {
       </Text>
       <Slider
         style={{width: 350, height: 50}}
-        minimumValue={0}
+        minimumValue={0.2}
         maximumValue={1}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
         step={0.2}
+        renderStepNumber='true'
       />
       <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
         Example Text

@@ -9,7 +9,7 @@ import { getDatabase, ref as dbRef, set } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 
 
-const DisplayCard = ({ cardName, image, title, description }) => {
+const DisplayCard = ({ cardName, card1, card2, title, description }) => {
     const [settingModal, setSettingModal] = useState(false);
     const [chatModal, setChatModal] = useState(false);
     const cardID = cardName;
@@ -18,7 +18,7 @@ const DisplayCard = ({ cardName, image, title, description }) => {
             {/* Clickable Card */}
             <TouchableOpacity style={styles.card} onPress={() => setSettingModal(true)}>
             <Text style={styles.cardTitle}>{title}</Text>
-            <Image source={{ uri: image }} style={styles.cardImage} />
+            <Image source={{ uri: card1 }} style={styles.cardImage} />
             <Text style={styles.cardDescriptionBox}>{description}</Text>
             </TouchableOpacity>
             
@@ -28,8 +28,14 @@ const DisplayCard = ({ cardName, image, title, description }) => {
                 onPress = {() => setSettingModal(false)}>
                     <Text> Back Arrow </Text>
                 </TouchableOpacity>
-
-                <Image source={{ uri: image }} style={styles.cardImage} />
+                <View style = {{height: '70%'}}>
+                    <Text style = {{alignSelf: "center", fontSize: 50}}> OFFER</Text>
+                    <View style = {{flexDirection: 'row', flexWrap: 'nowrap', flex: 1}}>
+                        <Image source={{ uri: card1 }} style={styles.cardTradeImage} />
+                        <Text style = {{alignSelf: 'center', fontSize: 25, fontWeight: 'bold'}}>FOR</Text>
+                        <Image source={{ uri: card2 }} style={styles.cardTradeImage} />
+                    </View>
+                </View>
 
                 <TouchableOpacity style={styles.button} onPress={() => setChatModal(true)}>
                     <Text style = {styles.buttonText}> Open Chat </Text>
@@ -77,8 +83,9 @@ const MessageBoard = () => {
             </View>
             <DisplayCard 
                 cardName={"test"} 
-                image = {"https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d"} 
-                title = {'test'} 
+                card1 = {"https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d"} 
+                card2 = {"https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FGolden%20Charmander_1730103687282?alt=media&token=621be39c-d151-4af0-b2ef-d41e7e639664"}
+                title = {'User Name?'} 
                 description = {'Last Sent Message?'}>
 
             </DisplayCard>
@@ -164,6 +171,18 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       marginBottom: 4
     },
+    cardTradeImage: {
+        width: '40%',
+        height: '60%',
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: 'black',
+        padding: 4,
+        alignSelf: 'center',
+        marginBottom: 4,
+        marginRight: 10,
+        marginLeft: 10
+      },
     cardDescriptionBox: {
       borderWidth: 2,
       borderBlockColor: 'black',

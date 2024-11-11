@@ -90,40 +90,43 @@ useEffect(() => {
 },[]);
 
 
-const checkForMatch = (currentUserID:string, listerID:string) => { //pain to make 
-  // Reference to currentUser's rightSwipes
-  const currentUserSwipeRef = dbRef(db, `users/${currentUserID}/rightSwipes/${listerID}`);
-  // Reference to lister's rightSwipes
-  const listerSwipeRef = dbRef(db, `users/${listerID}/rightSwipes/${currentUserID}`);
+const checkForMatch = (currentUserID, listerUserID, currentUserListingID, listerListingID) => {
+  // Reference to currentUser's rightSwipes on lister's profile
+  const currentUserSwipeRef = dbRef(db, `users/${currentUserID}/rightSwipes/${listerUserID}`);
+  // Reference to lister's rightSwipes on currentUser's profile
+  const listerSwipeRef = dbRef(db, `users/${listerUserID}/rightSwipes/${currentUserID}`);
 
-  // Check if the current user has swiped right on the card lister's listing
+  // Check if the current user has swiped right on the lister
   get(currentUserSwipeRef).then((snapshot) => {
     if (snapshot.exists()) {
-      // Check if the lister has swiped right on the current user's listing
+      // Check if the lister has also swiped right on the current user
       get(listerSwipeRef).then((listerSnapshot) => {
         if (listerSnapshot.exists()) {
-          // If both users have swiped right on each other's listing, create a match
-          createMatch(currentUserID, listerID);
+          // If both users have swiped right, create a match with listing IDs
+          createMatch(currentUserID, currentUserListingID, listerUserID, listerListingID);
         } else {
-          console.log("Lister has not swiped right on current user's listing");
+          console.log("Lister has not swiped right on current user");
         }
       });
     } else {
-      console.log("Current user has not swiped right on lister's listing");
+      console.log("Current user has not swiped right on lister");
     }
   });
 };
-const createMatch = (currentUserID:string, listerID:string) => { //pain to make 
+const createMatch = (currentUserID, currentUserListingID, listerUserID, listerListingID) => {
   // Create a reference for the match under both users
-  const matchRefCurrentUser = dbRef(db, `users/${currentUserID}/matches/${listerID}`);
-  const matchRefLister = dbRef(db, `users/${listerID}/matches/${currentUserID}`);
+  const matchRefCurrentUser = dbRef(db, `users/${currentUserID}/matches/${listerUserID}`);
+  const matchRefLister = dbRef(db, `users/${listerUserID}/matches/${currentUserID}`);
 
   const matchData = {
     matchedAt: Date.now(),
     status: 'matched',
+    currentUserID: currentUserID,
+    currentUserListingID: currentUserListingID,
+    listerUserID: listerUserID,
+    listerListingID: listerListingID
   };
-
-  // Save the match under both users' nodes
+  // Save the match under both users' nodes with the listing IDs
   set(matchRefCurrentUser, matchData)
     .then(() => {
       console.log("Match created for current user!");
@@ -149,26 +152,39 @@ const handleRightSwipe = (card) => {
   }
 
   const swipeData = {
-    listingID: card.listingID,
+    swiperID: currentUserID,
     timestamp: Date.now(),
+    listingID: card.listingID, // Store listing ID in data
   };
 
-
+  // Set swipe under the lister's userID, not the listingID directly
   const swipeRef = dbRef(db, `users/${card.userID}/rightSwipes/${currentUserID}`);
+  const currentUserListingRef = dbRef(db, `users/${currentUserID}/listings`);
 
-  set(swipeRef, swipeData)
-    .then(() => {
-      console.log("Right swipe saved successfully!");
-      checkForMatch(currentUserID, card.userID);
+  get(currentUserListingRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const currentUserListingID = snapshot.val();
+        
+        // Save the swipe data
+        return set(swipeRef, swipeData)
+          .then(() => {
+            console.log("Right swipe saved successfully!");
+            // Call checkForMatch with the retrieved listing ID
+            checkForMatch(currentUserID, card.userID, currentUserListingID, card.listingID);
+          });
+      } else {
+        console.error("Listing ID for current user not found.");
+      }
     })
     .catch((error) => {
-      console.error("Error saving swipe:", error);
+      console.error("Error retrieving current user's listing ID:", error);
     });
 };
-  // Call handleRightSwipe when the user swipes right
-  const onSwipedRight = (index) => {
-    const card = allListings[index];
-    handleRightSwipe(card);
+
+const onSwipedRight = (index) => {
+  const card = allListings[index];
+  handleRightSwipe(card);
   };
 
   return (

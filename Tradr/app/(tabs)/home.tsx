@@ -4,7 +4,7 @@ import getLocation from '../location';
 import Swiper from 'react-native-deck-swiper';
 import data from '../placeholderimage';
 import React from 'react';
-import { getDatabase, ref as dbRef, onValue, update } from 'firebase/database';
+import { getDatabase, ref as dbRef, onValue, update, set, get } from 'firebase/database';
 import { signOut, getAuth } from 'firebase/auth';
 import { FIREBASE_AUTH } from '@/firebase.js';
 import { useState, useEffect } from 'react';
@@ -27,16 +27,11 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
 };
 
 const auth = getAuth();
-const user = auth.currentUser;
 const db = getDatabase();
 const refDB = dbRef(getDatabase());
-const userID = user?.uid;
 
-const updateLocation = () => {
-  update(dbRef(db, `users/${userID}/profileInfo`), {
 
-  })
-}
+
 
 export default function Index() {
   const router = useRouter();
@@ -46,7 +41,8 @@ export default function Index() {
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
-
+  const user = auth.currentUser;
+  const userID = user?.uid;
   const [allListings, setAllListings] = useState([]);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
 
@@ -70,9 +66,11 @@ export default function Index() {
             const listing = userListings[listingID];
             if (listing.imageUrl) {
               imageCards.push({
-                image: listing.imageUrl,
-                title: listing.title,
-                description: listing.description,
+              image: listing.imageUrl,
+              title: listing.title,
+              description: listing.description,
+              listingID: listingID,
+              userID: userID
               });
             }
           }
@@ -80,11 +78,99 @@ export default function Index() {
       }
 
       setAllListings(imageCards);
-    });
+    }, (error) => { console.error("Error fetching listings:",error);
+  });
+}
+useEffect(() => {
+  if (user) { 
+    getAllListings(); 
+  } else { 
+    console.log("User not authenticated"); 
   }
-  useEffect(() => {
-    getAllListings();
-  }, []);
+},[]);
+
+
+const checkForMatch = (currentUserID:string, listerID:string) => { //pain to make 
+  // Reference to currentUser's rightSwipes
+  const currentUserSwipeRef = dbRef(db, `users/${currentUserID}/rightSwipes/${listerID}`);
+  // Reference to lister's rightSwipes
+  const listerSwipeRef = dbRef(db, `users/${listerID}/rightSwipes/${currentUserID}`);
+
+  // Check if the current user has swiped right on the card lister's listing
+  get(currentUserSwipeRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      // Check if the lister has swiped right on the current user's listing
+      get(listerSwipeRef).then((listerSnapshot) => {
+        if (listerSnapshot.exists()) {
+          // If both users have swiped right on each other's listing, create a match
+          createMatch(currentUserID, listerID);
+        } else {
+          console.log("Lister has not swiped right on current user's listing");
+        }
+      });
+    } else {
+      console.log("Current user has not swiped right on lister's listing");
+    }
+  });
+};
+const createMatch = (currentUserID:string, listerID:string) => { //pain to make 
+  // Create a reference for the match under both users
+  const matchRefCurrentUser = dbRef(db, `users/${currentUserID}/matches/${listerID}`);
+  const matchRefLister = dbRef(db, `users/${listerID}/matches/${currentUserID}`);
+
+  const matchData = {
+    matchedAt: Date.now(),
+    status: 'matched',
+  };
+
+  // Save the match under both users' nodes
+  set(matchRefCurrentUser, matchData)
+    .then(() => {
+      console.log("Match created for current user!");
+    })
+    .catch((error) => {
+      console.error("Error creating match for current user:", error);
+    });
+
+  set(matchRefLister, matchData)
+    .then(() => {
+      console.log("Match created for lister!");
+    })
+    .catch((error) => {
+      console.error("Error creating match for lister:", error);
+    });
+};
+
+const handleRightSwipe = (card) => {
+  const currentUserID = user?.uid;
+  if (!currentUserID) {
+    console.error("User is not authenticated");
+    return;
+  }
+
+  const swipeData = {
+    listingID: card.listingID,
+    timestamp: Date.now(),
+  };
+
+
+  const swipeRef = dbRef(db, `users/${card.userID}/rightSwipes/${currentUserID}`);
+
+  set(swipeRef, swipeData)
+    .then(() => {
+      console.log("Right swipe saved successfully!");
+      checkForMatch(currentUserID, card.userID);
+    })
+    .catch((error) => {
+      console.error("Error saving swipe:", error);
+    });
+};
+  // Call handleRightSwipe when the user swipes right
+  const onSwipedRight = (index) => {
+    const card = allListings[index];
+    handleRightSwipe(card);
+  };
+
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
@@ -92,6 +178,7 @@ export default function Index() {
             cards={allListings}
             cardIndex={index}
             renderCard={(card) => card ? <Card card={card} /> : null}
+            onSwipedRight={onSwipedRight}
             onSwiper={onSwiped}
             disableBottomSwipe
             disableTopSwipe
@@ -204,5 +291,6 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
   profileModalBackground: {
     backgroundColor: '#ecf0f1'
   }
-
 });
+
+

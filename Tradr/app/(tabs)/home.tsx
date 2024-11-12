@@ -29,6 +29,7 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
 const auth = getAuth();
 const db = getDatabase();
 const refDB = dbRef(getDatabase());
+const userUID = user?.uid;
 
 
 
@@ -220,6 +221,7 @@ const onSwipedRight = (index) => {
   handleRightSwipe(card);
   };
 
+  useEffect(() => { getUserData(); })
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />

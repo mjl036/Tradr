@@ -220,7 +220,6 @@ const onSwipedRight = (index) => {
   handleRightSwipe(card);
   };
 
-  useEffect(() => { getUserData(); })
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />

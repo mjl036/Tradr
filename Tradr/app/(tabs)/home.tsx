@@ -29,6 +29,7 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
 const auth = getAuth();
 const db = getDatabase();
 const refDB = dbRef(getDatabase());
+const userUID = user?.uid;
 
 
 
@@ -38,6 +39,11 @@ export default function Index() {
   const auth = FIREBASE_AUTH;
   const { longitude, latitude, errorMsg } = getLocation();
   const [index, setIndex] = React.useState(0);
+
+  const [targetRating, setTargetRating] = useState(0);
+  const [targetName, setTargetName] = useState('PlaceHolderName');
+  const [targetProfilePic, setTargetProfilePic] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
+
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
@@ -45,6 +51,25 @@ export default function Index() {
   const userID = user?.uid;
   const [allListings, setAllListings] = useState([]);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
+
+  const getUserData = () => {
+    if (user != null) {
+        const userRef = dbRef(db, `users/${userUID}/profileInfo`);
+        loaded = true;
+
+        onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+            // Sets data for the account info in the database
+            setTargetName(data.name);
+            setTargetRating(data.rating);
+            setTargetProfilePic(data.Profile_Picture);
+
+            // Sets data for the AUTH dataset
+        })
+    }
+
+
+  }
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');
@@ -197,6 +222,7 @@ const onSwipedRight = (index) => {
   handleRightSwipe(card);
   };
 
+  useEffect(() => { getUserData(); })
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />
@@ -262,6 +288,10 @@ const onSwipedRight = (index) => {
             onPress={() => setProfileModalVisible(!profileModalVisible)}
             title="Back"
           />
+          
+          <Text>User Name: {targetName} </Text>
+          <Text>Rating: {targetRating}</Text>
+
         </SafeAreaView>
       </Modal>
     </SafeAreaView >

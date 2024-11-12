@@ -38,6 +38,11 @@ export default function Index() {
   const auth = FIREBASE_AUTH;
   const { longitude, latitude, errorMsg } = getLocation();
   const [index, setIndex] = React.useState(0);
+
+  const [targetRating, setTargetRating] = useState(0);
+  const [targetName, setTargetName] = useState('PlaceHolderName');
+  const [targetProfilePic, setTargetProfilePic] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
+
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
@@ -45,6 +50,7 @@ export default function Index() {
   const userID = user?.uid;
   const [allListings, setAllListings] = useState([]);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
+
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');
@@ -137,6 +143,7 @@ const createMatch = (currentUserID, currentUserListingID, listerUserID, listerLi
   // Save the match under the current user's node
   set(matchRefCurrentUser, matchDataCurrentUser)
     .then(() => {
+      alert("Matched")
       console.log("Match created for current user!");
     })
     .catch((error) => {
@@ -261,6 +268,8 @@ const onSwipedRight = (index) => {
             onPress={() => setProfileModalVisible(!profileModalVisible)}
             title="Back"
           />
+
+        
         </SafeAreaView>
       </Modal>
     </SafeAreaView >

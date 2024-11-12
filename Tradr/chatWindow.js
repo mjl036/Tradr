@@ -6,63 +6,24 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fire
 import { getAuth } from "firebase/auth";
 import Icon from "react-native-vector-icons/Feather"
 const { windowHeight } = Dimensions.get('window');
-
+import { getDatabase, ref as dbRef, set, push, onValue, get } from 'firebase/database';
 
 const ChatWindow = ({ user, target }) => {
     const [messages, setMessages] = useState([]);
-    const [senderID, setSenderID] = useState(null);
-    const [recieverID, setRecieverID] = useState(null);
-    //const [targetAvatar, setTargetAvatar] = useState < String | (null) > (null);
-    //setTargetAvatar('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FHow%20about%20this%20one%3F?alt=media&token=b88190fa-8e99-41f4-8afc-5f0c0398ac8d');
-    const auth = getAuth();
+    const db = getDatabase();
+    alert(target)
+    const userMessagesRef = dbRef(db, `users/${user}/messages/`);
+    const matchMessagesRef = dbRef(db, `users/${target}/messages/`);
 
-    const GetUser = async () => {
-        var user = auth.currentUser;
-        var userID = await user?.getIdToken();
-    }
-
-    // Notes to self for future implementation
-    // Assaign ID when account is created so its always accessable
-    // Assign name to email, or whatever user changes it to in settings
-    // Store an avatar image in profile and display here for others
-
-    const setUsers = (sender, reciever) => {
-        setSenderID(1);
-        setRecieverID(2);
-    }
     // https://github.com/FaridSafi/react-native-gifted-chat Docs for code example
     useEffect(() => {
-        setMessages([
-            {
-                _id: 1,
-                text: 'Why no response?',
-                createdAt: new Date(),
-                user: {
-                    _id: 2,
-                    name: 'Trade User',
-                    avatar: 'https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FAvatarTest?alt=media&token=e1913408-2723-4486-b816-1c01a93fb8a9',
-
-                },
-            },
-            {
-                _id: 2,
-                text: 'Hello, I would like to trade.',
-                createdAt: new Date(),
-                user: {
-                    _id: 2,
-                    name: 'Trade User',
-                    avatar: 'https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FAvatarTest?alt=media&token=e1913408-2723-4486-b816-1c01a93fb8a9',
-
-                },
-            },
-
-        ])
-    }, [])
-
-
-
-    const simulateResponse = () => {
-    }
+        const setupEmpty = async () => {
+            await set(userMessagesRef, 'test');
+            alert(`users/${user}/messages/`)
+            await set(matchMessagesRef, 'test');
+        }
+        setupEmpty();
+    }, [user, target])
 
     const sendButtonStyle = (props) => {
         return (
@@ -101,18 +62,40 @@ const ChatWindow = ({ user, target }) => {
         )
     }
 
-    const onSend = useCallback((messages = []) => {
+    const onSend = useCallback((input = []) => {
         setMessages((previousMessages) =>
-            GiftedChat.append(previousMessages, messages),
+            GiftedChat.append(previousMessages, input),
         );
 
+        useEffect(() => {
+            const sendToDatabase = async () => {
+                await set(userMessagesRef, messages);
+                await set(matchMessagesRef, messages);
+            }
+
+            sendToDatabase();
+        }, [])
+
+        // set the storage for messages under /users/{user}/messages /users/{target}/messages
     }, []);
+
+
+    useEffect(() => {
+        const getMessages = async () => {
+            const userMessages = await get(userMessagesRef);
+            setMessages(userMessages.val().messages);
+        }
+
+        getMessages();
+
+    }, [user, target])
+
 
     return (
         <GiftedChat
             messages={messages}
             onSend={(messages) => onSend(messages)}
-            user={{ _id: user._userID, }}
+            user={{ _id: user }}
             renderUsernameOnMessage={true}
             placeholder='Type Message Here'
             renderAvatarOnTop={true}

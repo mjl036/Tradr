@@ -1,6 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, getReactNativePersistence, setPersistence } from "firebase/auth";
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeApp, getApp, getApps } from "firebase/app";
+import { initializeAuth, getAuth, getReactNativePersistence } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+//import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -15,14 +16,25 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const FIREBASE_APP = initializeApp(firebaseConfig);
-export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
-const localPersistence = getReactNativePersistence(ReactNativeAsyncStorage);
-setPersistence(FIREBASE_AUTH, localPersistence)
-  /*.then(() => {
-    console.log('Persistence set to local');
-  })
-  .catch((error) => {
-    console.error('Error setting persistence:', error);
-  });*/
-export const FIREBASE_STORAGE = getStorage(FIREBASE_APP);
+let FIREBASE_APP;
+let FIREBASE_AUTH;
+let FIREBASE_STORAGE;
+
+if (!getApps().length) {
+  try {
+    alert('Does this even initialize?')
+    FIREBASE_APP = initializeApp(firebaseConfig);
+    FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+  } catch (error) {
+    console.log('Error initializing app: ' + error);
+  }
+} else {
+  alert('It does not.')
+  FIREBASE_APP = getApp();
+  FIREBASE_AUTH = getAuth(FIREBASE_APP);
+  FIREBASE_STORAGE = getStorage(FIREBASE_APP);
+}
+
+export {FIREBASE_APP, FIREBASE_AUTH, FIREBASE_STORAGE}

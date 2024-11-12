@@ -90,18 +90,39 @@ export default function accountSettings() {
 
     }
 
-    {/* 
-    const changeEmail = async (input: string) => {
-        if (user != null) {
-            await updateEmail(user, input);
-            update(dbRef(db, `users/${userUID}/profileInfo`), {
-                email: input
-            })
-            getUserData;
+    const changeEmail = async (newEmail: string) => {
+        try {
+            const user = auth.currentUser;
+      
+            if (user) {
+                await updateEmail(user, newEmail);
+                alert('Email updated successfully!');
+                console.log('Email updated successfully!');
+            } else {
+                console.log('User not logged in.'); //Shouldn't be feasible, but just in case.
+            }
+        } catch (error) {
+            alert('Error updating email:' + error);
+            console.error('Error updating email:', error);
         }
+    };
 
-    }
-    */}
+    const changePassword = async (newPassword: string) => {
+        try {
+            const user = auth.currentUser;
+      
+            if (user) {
+                await updatePassword(user, newPassword);
+                alert('Password updated successfully!');
+                console.log('Password updated successfully!');
+          } else {
+                console.log('User not logged in.'); //Shouldn't be feasible, but just in case.
+          }
+        } catch (error) {
+            alert('Error updating password:' + error);
+            console.error('Error updating password:', error);
+        }
+    };
 
     const changeUserName = (input: string) => {
         if (user != null) {
@@ -113,14 +134,6 @@ export default function accountSettings() {
         }
 
     }
-
-    const changePassword = (input: string) => {
-        if (user != null) {
-            updatePassword(user, input);
-        }
-
-    }
-
 
     {/* This function is to set up all the data from the uploaded user information */ }
     const getUserData = () => {
@@ -180,6 +193,7 @@ export default function accountSettings() {
                 </View>
 
                 <View style={{ flex: 1, padding: 10 }}>
+
                     {/* Username Box */}
                     <View style={styles.inputBox}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', alignSelf: 'center', }}>USERNAME</Text>
@@ -193,46 +207,33 @@ export default function accountSettings() {
                         </TouchableOpacity>
                     </View>
 
-                    {/* 
-                    {/* Password Box }
+
+                    {/* Password Box */}
                     <View style={styles.inputBox}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', alignSelf: 'center', }}>PASSWORD</Text>
                         <TextInput
                             style={styles.textInput}
-                            placeholder="Enter Old Password"
-                            multiline={true}
-                        />
-                        <TextInput
-                            style={styles.textInput}
                             placeholder="Enter New Password"
-                            multiline={true}
                             onChangeText={setNewUserPassword}
                         />
-
-                        <TouchableOpacity style={styles.button} onPress={() => setPasswordModalVisable(true)}>
+                        <TouchableOpacity style={styles.button} onPress={() => changePassword(userPassword)}>
                             <Text style={styles.buttonText}>Change Password</Text>
                         </TouchableOpacity>
                     </View>
 
-                    {/* Email Box }
+                    {/* Email Box */}
                     <View style={styles.inputBox}>
                         <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', alignSelf: 'center', }}>EMAIL</Text>
-
-
                         <TextInput
                             style={styles.textInput}
                             placeholder="Enter New Email"
-                            multiline={true}
+                            onChangeText={setUserEmailTemp}
                         />
 
                         <TouchableOpacity style={styles.button} onPress={() => changeEmail(userEmailTemp)}>
                             <Text style={styles.buttonText}>Change Email</Text>
                         </TouchableOpacity>
                     </View>
-                    */}
-
-
-
 
                 </View>
 
@@ -282,57 +283,7 @@ export default function accountSettings() {
 
                 </Modal>
 
-                {/* CHANGE PASSWORD SCREEN*/}
-                <Modal style={{ alignContent: 'center' }} visible={PasswordModalVisable} animationType='slide' onRequestClose={() => setPasswordModalVisable(false)}>
-                    <SafeAreaView style={{ backgroundColor: '#001242', width: '100%', height: '100%', alignContent: 'center', alignSelf: 'center' }}>
-
-                        <View style={{ flex: 1 }}>
-
-                        </View>
-
-                        <View style={{ flexDirection: 'row', borderColor: 'black', borderRadius: 5, borderWidth: 2 }}>
-                            <TouchableOpacity style={styles.quitButton} onPress={() => setPasswordModalVisable(false)}>
-                                <Text style={styles.buttonText}>Cancel</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={styles.quitButton} onPress={() => { changeProfilePic(); }}>
-                                <Text style={styles.buttonText} >Confirm Change</Text>
-                            </TouchableOpacity>
-
-
-                        </View>
-
-                    </SafeAreaView>
-                </Modal>
-
-
-                {/* CHANGE USERNAME SCREEN*/}
-                <Modal style={{ alignContent: 'center' }} visible={userNameModalVisible} animationType='slide' onRequestClose={() => setUserModalVisable(false)}>
-                    <SafeAreaView style={{ backgroundColor: '#001242', width: '100%', height: '100%', alignContent: 'center', alignSelf: 'center' }}>
-                        <View style={{ flex: 1 }}>
-
-                        </View>
-
-                        <View style={{ flexDirection: 'row', borderColor: 'black', borderRadius: 5, borderWidth: 2 }}>
-                            <TouchableOpacity style={styles.quitButton} onPress={() => setUserModalVisable(false)}>
-                                <Text style={styles.buttonText}>Cancel</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={styles.quitButton} onPress={() => { changeProfilePic(); }}>
-                                <Text style={styles.buttonText} >Confirm Image</Text>
-                            </TouchableOpacity>
-
-
-                        </View>
-
-                    </SafeAreaView>
-                </Modal>
-
-
             </SafeAreaView>
-
-
-
 
         )
 
@@ -351,7 +302,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightblue',
         padding: 2,
         justifyContent: 'center',
-        height: 50,
+        height: 40,
         borderColor: '000022',
         borderWidth: 3,
         margin: 5,
@@ -411,10 +362,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         padding: 2,
         justifyContent: 'center',
-        height: 50,
+        height: 38,
         borderColor: '000022',
         borderWidth: 3,
-        margin: 5,
+        margin: 2,
         borderRadius: 5
 
     },

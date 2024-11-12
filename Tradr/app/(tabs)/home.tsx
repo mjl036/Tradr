@@ -137,6 +137,7 @@ const createMatch = (currentUserID, currentUserListingID, listerUserID, listerLi
   // Save the match under the current user's node
   set(matchRefCurrentUser, matchDataCurrentUser)
     .then(() => {
+      alert("Matched")
       console.log("Match created for current user!");
     })
     .catch((error) => {

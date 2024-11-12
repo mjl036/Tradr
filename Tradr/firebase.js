@@ -27,6 +27,7 @@ if (!getApps().length) {
     FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
       persistence: getReactNativePersistence(AsyncStorage),
     });
+    FIREBASE_STORAGE = getStorage(FIREBASE_APP);
   } catch (error) {
     console.log('Error initializing app: ' + error);
   }

@@ -114,20 +114,28 @@ const checkForMatch = (currentUserID, listerUserID, currentUserListingID, lister
   });
 };
 const createMatch = (currentUserID, currentUserListingID, listerUserID, listerListingID) => {
-  // Create a reference for the match under both users
+  // Create references for the match under both users
   const matchRefCurrentUser = dbRef(db, `users/${currentUserID}/matches/${listerUserID}`);
   const matchRefLister = dbRef(db, `users/${listerUserID}/matches/${currentUserID}`);
 
-  const matchData = {
+  // Define match data specifically for the current user
+  const matchDataCurrentUser = {
     matchedAt: Date.now(),
     status: 'matched',
-    currentUserID: currentUserID,
-    currentUserListingID: currentUserListingID,
-    listerUserID: listerUserID,
-    listerListingID: listerListingID
+    currentUserID: currentUserID,            // Our ID (current user perspective)
+    listerUserID: listerUserID,              // Other user's ID
   };
-  // Save the match under both users' nodes with the listing IDs
-  set(matchRefCurrentUser, matchData)
+
+  // Define match data specifically for the lister user
+  const matchDataLister = {
+    matchedAt: Date.now(),
+    status: 'matched',
+    currentUserID: listerUserID,              // Lister's ID (from their perspective)
+    listerUserID: currentUserID,              // Our ID from their perspective
+  };
+
+  // Save the match under the current user's node
+  set(matchRefCurrentUser, matchDataCurrentUser)
     .then(() => {
       console.log("Match created for current user!");
     })
@@ -135,7 +143,8 @@ const createMatch = (currentUserID, currentUserListingID, listerUserID, listerLi
       console.error("Error creating match for current user:", error);
     });
 
-  set(matchRefLister, matchData)
+  // Save the match under the lister's node
+  set(matchRefLister, matchDataLister)
     .then(() => {
       console.log("Match created for lister!");
     })

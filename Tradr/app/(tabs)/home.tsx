@@ -287,7 +287,10 @@ const onSwipedRight = (index) => {
             onPress={() => setProfileModalVisible(!profileModalVisible)}
             title="Back"
           />
+          
           <Text>User Name: {targetName} </Text>
+          <Text>Rating: {targetRating}</Text>
+
         </SafeAreaView>
       </Modal>
     </SafeAreaView >

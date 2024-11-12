@@ -53,6 +53,7 @@ const loginScreen = () => {
         console.log(response)
         if (response.user) {
           alert('Login Successful!');
+          setupData();
           router.replace("/home");
         }
       } catch (e: any) {

@@ -32,7 +32,7 @@ const loginScreen = () => {
     const userName = `New_User${Date.now()}`;
     const userEmail = user?.email
     const placeholderImage = imageUrl
-    
+
     set(refDatabase(db, `users/${UID}/profileInfo`), {
       name: userName,
       UserID: UID,

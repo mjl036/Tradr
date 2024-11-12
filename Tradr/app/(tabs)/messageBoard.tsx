@@ -32,15 +32,20 @@ export default function MessageBoard() {
         if (matches) {
           for (let currentMatch in matches) {
             const data = matches[currentMatch];
+
             let matchedWithUID = data.listerUserID
 
             const cardRef = dbRef(db, `users/${userUID}/rightSwipes/${matchedWithUID}`);
+
+            const cardRef2 = dbRef(db, `users/${matchedWithUID}/rightSwipes/${userUID}`);
+
             const swipeSnapshot = await get(cardRef)
+            const swipeSnapshot2 = await get(cardRef2)
 
             matchSet.push({
               UID: userUID,
               matchUID: matchedWithUID,
-              userWant: data.listerListingID,
+              userWant: swipeSnapshot2.val().listingID,
               matchWant: swipeSnapshot.val().listingID
             });
           }

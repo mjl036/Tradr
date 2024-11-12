@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let FIREBASE_APP;
+/*let FIREBASE_APP;
 let FIREBASE_AUTH;
 let FIREBASE_STORAGE;
 
@@ -37,5 +37,8 @@ if (!getApps().length) {
   FIREBASE_AUTH = getAuth(FIREBASE_APP);
   FIREBASE_STORAGE = getStorage(FIREBASE_APP);
 }
-
-export {FIREBASE_APP, FIREBASE_AUTH, FIREBASE_STORAGE}
+*/
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+export const FIREBASE_STORAGE = getStorage(FIREBASE_APP);
+//export {FIREBASE_APP, FIREBASE_AUTH, FIREBASE_STORAGE}

@@ -60,6 +60,8 @@ export default function MessageBoard() {
   const DisplayCard = ({ UID, matchUID, userWant, matchWant }) => {
     const [settingModal, setSettingModal] = useState(false);
     const [chatModal, setChatModal] = useState(false);
+    const [reportModal, setReportModal] = useState(false);
+    const [ratingModal, setRatingModal] = useState(false);
 
 
     const [wantImage, setWantImage] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
@@ -121,6 +123,9 @@ export default function MessageBoard() {
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}> Cancel Trade</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => setReportModal(true)}>
+              <Text style={styles.buttonText}> Report </Text>
+            </TouchableOpacity>
           </View>
 
         </Modal>
@@ -131,10 +136,25 @@ export default function MessageBoard() {
             onPress={() => setChatModal(false)}>
             <Text> Close </Text>
           </TouchableOpacity>
-
-          <ChatWindow user={UID} target={matchUID} />
-
+          <ChatWindow user={{ UID }} target={{ matchUID }}></ChatWindow>
         </Modal>
+
+        {/* Rating Screen */}
+        <Modal visible={ratingModal} animationType="slide">
+          <TouchableOpacity style={{ width: 50, height: 25, backgroundColor: 'red', alignSelf: 'baseline' }}
+            onPress={() => setRatingModal(false)}>
+            <Text> Close </Text>
+          </TouchableOpacity>
+        </Modal>
+
+        {/* Reporting Screen */}
+        <Modal visible={reportModal} animationType="slide">
+          <TouchableOpacity style={{ width: 50, height: 25, backgroundColor: 'red', alignSelf: 'baseline' }}
+            onPress={() => setReportModal(false)}>
+            <Text> Close </Text>
+          </TouchableOpacity>
+        </Modal>
+
       </SafeAreaView>
     );
   };
@@ -190,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'black',
     width: '80%',
-    height: 60,
+    height: 45,
     borderRadius: 5,
     borderWidth: 2,
     padding: 2,

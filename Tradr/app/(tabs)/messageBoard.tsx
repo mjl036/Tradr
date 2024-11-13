@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import ChatWindow from '../../chatWindow'
 import { FIREBASE_STORAGE } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getDatabase, ref as dbRef, set, onValue, get } from 'firebase/database';
+import { getDatabase, ref as dbRef, set, onValue, get, DatabaseReference, remove } from 'firebase/database';
 import { getAuth } from "firebase/auth";
 
 
@@ -57,6 +57,7 @@ export default function MessageBoard() {
     }
   }
 
+
   const DisplayCard = ({ UID, matchUID, userWant, matchWant }) => {
     const [settingModal, setSettingModal] = useState(false);
     const [chatModal, setChatModal] = useState(false);
@@ -67,6 +68,20 @@ export default function MessageBoard() {
     const [wantDesc, setWantDesc] = useState('broken');
     const [offerImage, setOfferImage] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
 
+
+    const deleteMatch = (matchID) => {
+
+      alert(`users/${UID}/matches/${matchID}`)
+
+
+      const userRef = dbRef(db, `users/${UID}/matches/${matchID}`);
+      const userRef2 = dbRef(db, `users/${matchID}/matches/${UID}`);
+
+      remove(userRef)
+      remove(userRef2)
+
+      retrieveData
+    }
 
     useEffect(() => {
       const fetchCardData = async () => {
@@ -115,10 +130,11 @@ export default function MessageBoard() {
           </TouchableOpacity>
 
           <View style={{ flexDirection: 'column' }}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => { deleteMatch(matchUID); setSettingModal(false) }}>
               <Text style={styles.buttonText}> Accept Trade</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+
+            <TouchableOpacity style={styles.button} onPress={() => { deleteMatch(matchUID); setSettingModal(false) }}>
               <Text style={styles.buttonText}> Cancel Trade</Text>
             </TouchableOpacity>
           </View>
@@ -293,6 +309,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
 });
+
 
 
 

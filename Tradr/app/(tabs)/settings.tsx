@@ -14,6 +14,40 @@ function darkModeUI() {
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   }
+  return (
+
+    <SafeAreaView> 
+      <Button 
+        title="Toggle Notifications"
+      />
+      <Text>
+      {"{"}slider.value{"}"}
+      </Text>
+      <Text>
+      How far out would you like to see listings?
+      </Text>
+      <Slider
+        style={{width: 350, height: 50}}
+        minimumValue={1}
+        maximumValue={500}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+      />
+      <Text >
+      What minimum rating would you like potential matches to be?
+      </Text>
+      <Slider
+        style={{width: 350, height: 50}}
+        minimumValue={0}
+        maximumValue={1}
+        lowerLimit={0.2}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+        step={0.2}
+        renderStepNumber='true'
+      />
+    </SafeAreaView>
+  );
 }
 
 const data = [
@@ -73,44 +107,6 @@ const DropdownComponent = () => {
 };
 
 export default DropdownComponent;
-
-const App = () => {
-
-  return (
-
-    <SafeAreaView> 
-      <Button 
-        title="Toggle Notifications"
-      />
-      <Text>
-      {"{"}slider.value{"}"}
-      </Text>
-      <Text>
-      How far out would you like to see listings?
-      </Text>
-      <Slider
-        style={{width: 350, height: 50}}
-        minimumValue={1}
-        maximumValue={500}
-        minimumTrackTintColor="#FFFFFF"
-        maximumTrackTintColor="#000000"
-      />
-      <Text >
-      What minimum rating would you like potential matches to be?
-      </Text>
-      <Slider
-        style={{width: 350, height: 50}}
-        minimumValue={0}
-        maximumValue={1}
-        lowerLimit={0.2}
-        minimumTrackTintColor="#FFFFFF"
-        maximumTrackTintColor="#000000"
-        step={0.2}
-        renderStepNumber='true'
-      />
-    </SafeAreaView>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {

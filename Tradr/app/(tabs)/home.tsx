@@ -17,9 +17,9 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
       <View style={styles.card}>
         <ImageBackground source={{ uri: card.image }} style={styles.cardImage}>
           <View style={styles.textOverlay}>
-            <Text style={styles.cardTitle}>{card.title}</Text>
-            <Text style={styles.cardDescription}>{card.description}</Text>
+            <Text style={styles.cardTitle}>{card.title} </Text>
             <Text style={styles.cardCityName}>{card.Location}</Text>
+            <Text style={styles.cardDescription}>{card.description}</Text>
           </View>
         </ImageBackground>
       </View>
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
     marginTop: 5,
   },
   cardCityName: {
-    fontSize: 14,
+    fontSize: 16,
     color: 'white',
     marginTop: 5,
   },

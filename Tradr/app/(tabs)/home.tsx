@@ -17,7 +17,8 @@ const Card = ({ card }) => { //creates my card item that takes the card image fr
       <View style={styles.card}>
         <ImageBackground source={{ uri: card.image }} style={styles.cardImage}>
           <View style={styles.textOverlay}>
-            <Text style={styles.cardTitle}>{card.title}</Text>
+            <Text style={styles.cardTitle}>{card.title} </Text>
+            <Text style={styles.cardCityName}>{card.Location}</Text>
             <Text style={styles.cardDescription}>{card.description}</Text>
           </View>
         </ImageBackground>
@@ -36,7 +37,7 @@ const refDB = dbRef(getDatabase());
 export default function Index() {
   const router = useRouter();
   const auth = FIREBASE_AUTH;
-  const { longitude, latitude, errorMsg } = getLocation();
+  const { longitude, latitude } = getLocation();
   const [index, setIndex] = React.useState(0);
 
   const [targetRating, setTargetRating] = useState(0);
@@ -51,6 +52,10 @@ export default function Index() {
   const [allListings, setAllListings] = useState([]);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
 
+   update(dbRef(db, `users/${userID}/profileInfo`), {
+    Profile_Latitude: Number(latitude),
+    Profile_Longitude: Number(longitude)
+}); 
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');
@@ -67,6 +72,8 @@ export default function Index() {
         }
 
         const userListings = usersData[userID].listings;
+        const userProfile = usersData[userID].profileInfo;
+        const cityName = userProfile ? userProfile.Profile_City : "";
         if (userListings) {
           for (let listingID in userListings) {
             const listing = userListings[listingID];
@@ -76,7 +83,8 @@ export default function Index() {
               title: listing.title,
               description: listing.description,
               listingID: listingID,
-              userID: userID
+              userID: userID,
+              Location: cityName 
               });
             }
           }
@@ -314,6 +322,11 @@ const styles = StyleSheet.create({ //Styling to get the card to display on page
   },
   cardDescription: {
     fontSize: 14,
+    color: 'white',
+    marginTop: 5,
+  },
+  cardCityName: {
+    fontSize: 16,
     color: 'white',
     marginTop: 5,
   },

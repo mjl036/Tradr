@@ -15,6 +15,9 @@ const loginScreen = () => {
   const [password, setPassword] = useState('')
   //const [loading, setLoading] = useState(false)
   const auth = FIREBASE_AUTH;
+  const { cityName } = getLocation();
+
+
 
   //const nav = useNavigation<NativeStackNavigationProp<any>>();
   const router = useRouter();
@@ -37,7 +40,8 @@ const loginScreen = () => {
       Profile_Picture: placeholderImage,
       Profile_Rating: 0,
       Profile_Latitude: 0,
-      Profile_Longitude: 0
+      Profile_Longitude: 0,
+      Profile_City: cityName
 
     });
 

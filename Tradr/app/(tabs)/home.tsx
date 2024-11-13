@@ -1,5 +1,5 @@
 import { Alert, Text, StyleSheet, View, Image, ImageBackground, StatusBar, SafeAreaView , Button, Modal, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter} from "expo-router";
 import getLocation from '../location';
 import Swiper from 'react-native-deck-swiper';
 import data from '../placeholderimage';
@@ -39,11 +39,9 @@ export default function Index() {
   const auth = FIREBASE_AUTH;
   const { longitude, latitude } = getLocation();
   const [index, setIndex] = React.useState(0);
-
   const [targetRating, setTargetRating] = useState(0);
   const [targetName, setTargetName] = useState('PlaceHolderName');
   const [targetProfilePic, setTargetProfilePic] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
-
   const onSwiped = () => { //Creates the swipe function and changes images in stack 
     setIndex((index + 1) % data.length);
   };
@@ -51,11 +49,13 @@ export default function Index() {
   const userID = user?.uid;
   const [allListings, setAllListings] = useState([]);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
-
    update(dbRef(db, `users/${userID}/profileInfo`), {
     Profile_Latitude: Number(latitude),
     Profile_Longitude: Number(longitude)
-}); 
+    }); 
+
+
+
 
   function getAllListings() {
     const usersRef = dbRef(db, 'users');
@@ -74,10 +74,14 @@ export default function Index() {
         const userListings = usersData[userID].listings;
         const userProfile = usersData[userID].profileInfo;
         const cityName = userProfile ? userProfile.Profile_City : "";
+
         if (userListings) {
           for (let listingID in userListings) {
             const listing = userListings[listingID];
+
             if (listing.imageUrl) {
+
+
               imageCards.push({
               image: listing.imageUrl,
               title: listing.title,
@@ -102,6 +106,7 @@ useEffect(() => {
     console.log("User not authenticated"); 
   }
 },[]);
+
 
 
 const checkForMatch = (currentUserID, listerUserID, currentUserListingID, listerListingID) => {
@@ -210,7 +215,6 @@ const onSwipedRight = (index) => {
   const card = allListings[index];
   handleRightSwipe(card);
   };
-
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar backgroundColor={'grey'} barStyle={'dark-content'} />

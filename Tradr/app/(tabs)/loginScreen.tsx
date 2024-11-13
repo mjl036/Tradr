@@ -17,7 +17,6 @@ const loginScreen = () => {
   const auth = FIREBASE_AUTH;
 
 
-testing
 
   //const nav = useNavigation<NativeStackNavigationProp<any>>();
   const router = useRouter();

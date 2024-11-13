@@ -6,9 +6,68 @@ import Slider from '@react-native-community/slider';
 import { Dropdown } from 'react-native-element-dropdown';
  
 
+const data = [
+  { label: 'Item 1', value: '1' },
+  { label: 'Item 2', value: '2' },
+];
+
+const DropdownComponent = () => {
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: 'blue'}]}>
+          Dropdown label
+        </Text>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <View style={styles.container}>
+      {renderLabel()}
+      <Dropdown
+      style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+      placeholderStyle={styles.placeholderStyle}
+      selectedTextStyle={styles.selectedTextStyle}
+      inputSearchStyle={styles.inputSearchStyle}
+      iconStyle={styles.iconStyle}
+      data={data}
+      search
+      maxHeight={300}
+      labelField="label"
+      valueField="value"
+      placeholder={!isFocus ? 'Select item' : '...'}
+      searchPlaceholder="Search..."
+      value={value}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+      onChange={item => {
+        setValue(item.value);
+        setIsFocus(false);
+      }}
+      renderLeftIcon={() => (
+        <AndDesign
+          style={styles.icon}
+          color={isFocus ? 'blue' : 'black'}
+          name="Safety"
+          size={20}
+          />
+      )}
+      />
+    </View>
+  );
+};
 
 export default DropdownComponent;
 // This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
+function Default () {
+  null
+}
+export default Default;
 const App = () => {
 
   return (

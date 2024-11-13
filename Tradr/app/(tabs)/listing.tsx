@@ -77,7 +77,7 @@ export default function listing() {
 
         <Modal visible={settingModal} animationType="slide">
 
-          <SafeAreaView style={{ backgroundColor: 'blue' }}>
+          <SafeAreaView style={{ backgroundColor: 'green' }}>
             <View style={{ height: '90%', alignItems: 'center' }}>
               <Text style={{ fontSize: 90, color: 'white' }}>{title}</Text>
               <Image source={{ uri: image }} style={{ width: '80%', height: '70%', marginBottom: 20, borderColor: 'black', borderWidth: 6, borderRadius: 20 }} />

@@ -1,4 +1,4 @@
-import { Text, View, Button, SafeAreaView, StyleSheet, Modal, TouchableOpacity, Image, Pressable } from "react-native";
+import { Text, View, Button, SafeAreaView, StyleSheet, Modal, TouchableOpacity, Image, Pressable, TextInput } from "react-native";
 import { useRouter } from "expo-router";
 import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 import React, { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { FIREBASE_STORAGE } from '../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, set, onValue, get } from 'firebase/database';
 import { getAuth } from "firebase/auth";
+import { Rating } from 'react-native-ratings';
 
 
 
@@ -62,6 +63,8 @@ export default function MessageBoard() {
     const [chatModal, setChatModal] = useState(false);
     const [reportModal, setReportModal] = useState(false);
     const [ratingModal, setRatingModal] = useState(false);
+    const [rating, setRating] = useState(0)
+    const [reportReason, setReportReason] = useState(0)
 
 
     const [wantImage, setWantImage] = useState('https://firebasestorage.googleapis.com/v0/b/tradr-app-c2b3a.appspot.com/o/images%2FPlaceHolderTest_1729802771133?alt=media&token=a5539da7-ede6-49ad-a517-970583b92c9d');
@@ -87,6 +90,10 @@ export default function MessageBoard() {
       fetchCardData();
     }, []);
 
+    const report = async (reportReason: string) => {
+      alert('Report Submitted');
+      setReportModal(false);
+    }
 
     return (
       <SafeAreaView style={{ padding: 5, alignContent: "center" }}>
@@ -145,6 +152,20 @@ export default function MessageBoard() {
             onPress={() => setRatingModal(false)}>
             <Text> Close </Text>
           </TouchableOpacity>
+          <View>
+            <Rating
+              type='star'
+              ratingCount={5}
+              imageSize={40}
+              onFinishRating={(rating) => setRating(rating)}
+              style={{ paddingVertical: 10 }}
+            />
+          <Text>Rating: {rating}</Text>
+        </View>
+        <TouchableOpacity style={{ width: 92, height: 25, backgroundColor: 'lightblue', alignSelf: 'center' }}
+          onPress={() => setRatingModal(false)}>
+          <Text> Submit Rating </Text>
+        </TouchableOpacity>
         </Modal>
 
         {/* Reporting Screen */}
@@ -153,6 +174,14 @@ export default function MessageBoard() {
             onPress={() => setReportModal(false)}>
             <Text> Close </Text>
           </TouchableOpacity>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter Reason for Report"
+            onChangeText={setReportReason}
+            />
+            <TouchableOpacity style={styles.button} onPress={() => report(reportReason)}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
         </Modal>
 
       </SafeAreaView>
@@ -311,6 +340,20 @@ const styles = StyleSheet.create({
     height: 120,
     fontSize: 20,
     padding: 4,
+  },
+  textInput: {
+    height: 50,
+    width: "100%",
+    borderColor: 'black',
+    borderWidth: 3,
+    padding: 5,
+    backgroundColor: 'lightblue',
+    fontSize: 30,
+    textAlignVertical: 'top',
+    marginTop: 10,
+    borderRadius: 5,
+    color: 'black',
+    fontWeight: 'bold',
   },
 });
 

@@ -63,11 +63,7 @@ const DropdownComponent = () => {
 };
 
 export default DropdownComponent;
-// This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
-function Default () {
-  null
-}
-export default Default;
+
 const App = () => {
 
   return (

@@ -1,6 +1,6 @@
 import { Text, View, Button, SafeAreaView, StyleSheet, Modal, TouchableOpacity, Image, Pressable } from "react-native";
 import { useRouter } from "expo-router";
-import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
+import { FlatList, GestureHandlerRootView, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import React, { useEffect, useState } from 'react';
 import ChatWindow from '../../chatWindow'
 import { FIREBASE_STORAGE } from '../../firebase';
@@ -87,7 +87,7 @@ export default function MessageBoard() {
 
 
     return (
-      <SafeAreaView style={{ padding: 5, alignContent: "center" }}>
+      <View style={{ padding: 5, alignContent: "center" }}>
         {/* Clickable Card */}
         <TouchableOpacity style={styles.card} onPress={() => setSettingModal(true)}>
           <Text style={styles.cardTitle}>{wantTitle}</Text>
@@ -127,15 +127,19 @@ export default function MessageBoard() {
 
         {/* Chat Screen */}
         <Modal visible={chatModal} animationType="slide">
-          <TouchableOpacity style={{ width: 50, height: 25, backgroundColor: 'red', alignSelf: 'baseline' }}
-            onPress={() => setChatModal(false)}>
-            <Text> Close </Text>
-          </TouchableOpacity>
+          <TouchableWithoutFeedback style={{ width: '100%', height: '100%' }}>
+            <TouchableOpacity style={{ width: 50, height: 25, backgroundColor: 'red', alignSelf: 'baseline' }}
+              onPress={() => setChatModal(false)}>
+              <Text> Close </Text>
+            </TouchableOpacity>
 
-          <ChatWindow user={UID} target={matchUID} />
+            <ChatWindow user={UID} target={matchUID} />
+
+          </TouchableWithoutFeedback>
+
 
         </Modal>
-      </SafeAreaView>
+      </View>
     );
   };
 

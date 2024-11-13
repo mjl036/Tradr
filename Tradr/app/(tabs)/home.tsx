@@ -275,13 +275,15 @@ const onSwipedRight = (index) => {
           />
         </View>
       <Modal animationType="slide" transparent={false} visible={profileModalVisible} onRequestClose={() => {Alert.alert('Testing for future purposes'); setProfileModalVisible(!profileModalVisible);}}>
-        <SafeAreaView style={{ backgroundColor: 'blue' , flex: 1}}>
+        <SafeAreaView style={{ backgroundColor: 'white' , flex: 1}}>
           <Button
             onPress={() => setProfileModalVisible(!profileModalVisible)}
             title="Back"
           />
-
-        
+          <Text>
+            Name:
+            Rating:
+          </Text>
         </SafeAreaView>
       </Modal>
     </SafeAreaView >

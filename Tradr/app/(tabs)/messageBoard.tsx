@@ -145,7 +145,7 @@ export default function MessageBoard() {
           </TouchableOpacity>
 
           <View style={{ flexDirection: 'column' }}>
-            <TouchableOpacity style={styles.button} onPress={() => { deleteMatch(matchUID); setSettingModal(false) }}>
+            <TouchableOpacity style={styles.button} onPress={() => { deleteMatch(matchUID); setSettingModal(false); setRatingModal(true) }}>
               <Text style={styles.buttonText}> Accept Trade</Text>
             </TouchableOpacity>
 
@@ -223,7 +223,7 @@ export default function MessageBoard() {
       </View>
       <GestureHandlerRootView>
         <SafeAreaView>
-          <FlatList data={userMatches} renderItem={({ item }) => <DisplayCard {...item} />}>
+          <FlatList data={userMatches} renderItem={({ item }) => <DisplayCard {...item} numColumns={2} />}>
 
           </FlatList>
         </SafeAreaView>

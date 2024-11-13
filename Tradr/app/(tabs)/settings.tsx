@@ -3,30 +3,79 @@ import React , { Component } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useColorScheme } from 'react-native';
 import Slider from '@react-native-community/slider';
-import SelectDropdown from 'react-native-select-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
  
 
-// This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
-function darkModeUI() {
-  
-  const systemColorScheme = useColorScheme();
-  const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
+const data = [
+  { label: 'Item 1', value: '1' },
+  { label: 'Item 2', value: '2' },
+];
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+const DropdownComponent = () => {
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: 'blue'}]}>
+          Dropdown label
+        </Text>
+      );
+    }
+    return null;
   };
-  
+
+  return (
+    <View style={styles.container}>
+      {renderLabel()}
+      <Dropdown
+      style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+      placeholderStyle={styles.placeholderStyle}
+      selectedTextStyle={styles.selectedTextStyle}
+      inputSearchStyle={styles.inputSearchStyle}
+      iconStyle={styles.iconStyle}
+      data={data}
+      search
+      maxHeight={300}
+      labelField="label"
+      valueField="value"
+      placeholder={!isFocus ? 'Select item' : '...'}
+      searchPlaceholder="Search..."
+      value={value}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
+      onChange={item => {
+        setValue(item.value);
+        setIsFocus(false);
+      }}
+      renderLeftIcon={() => (
+        <AndDesign
+          style={styles.icon}
+          color={isFocus ? 'blue' : 'black'}
+          name="Safety"
+          size={20}
+          />
+      )}
+      />
+    </View>
+  );
+};
+
+export default DropdownComponent;
+// This will most likely be updated in the future to be able to change colors of the light and dark mode and texts
+const App = () => {
+
   return (
 
-    <SafeAreaView style={theme === 'dark' ? styles.darkContainer : styles.lightContainer}>
-        
+    <SafeAreaView> 
       <Button 
         title="Toggle Notifications"
       />
       <Text>
       {"{"}slider.value{"}"}
       </Text>
-      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
+      <Text>
       How far out would you like to see listings?
       </Text>
       <Slider
@@ -36,7 +85,7 @@ function darkModeUI() {
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
       />
-      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
+      <Text >
       What minimum rating would you like potential matches to be?
       </Text>
       <Slider
@@ -49,33 +98,48 @@ function darkModeUI() {
         step={0.2}
         renderStepNumber='true'
       />
-      <Text style={theme === 'dark' ? styles.darkText : styles.lightText}>
-        Example Text
-      </Text>
-      <Button title="Toggle Dark/Light Mode" onPress={toggleTheme} />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  lightContainer: {
-    flex: 1,
+  container: {
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
-  darkContainer: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
   },
-  lightText: {
-    color: 'black',
+  icon: {
+    marginRight: 5,
   },
-  darkText: {
-    color: 'white',
-  }
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
 });
 
 export default darkModeUI;

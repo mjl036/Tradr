@@ -5,6 +5,16 @@ import { useColorScheme } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { Dropdown } from 'react-native-element-dropdown';
  
+function darkModeUI() {
+  
+  const systemColorScheme = useColorScheme();
+  const [theme, setTheme] = React.useState<'light' | 'dark'>(systemColorScheme === 'dark' ? 'dark' : 'light');
+
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  }
+}
 
 const data = [
   { label: 'Item 1', value: '1' },
@@ -142,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default darkModeUI;

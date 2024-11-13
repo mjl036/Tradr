@@ -165,7 +165,7 @@ export default function MessageBoard() {
             onPress={() => setChatModal(false)}>
             <Text> Close </Text>
           </TouchableOpacity>
-          <ChatWindow user={{ UID }} target={{ matchUID }}></ChatWindow>
+          <ChatWindow user={ UID } target={ matchUID }></ChatWindow>
         </Modal>
 
         {/* Rating Screen */}

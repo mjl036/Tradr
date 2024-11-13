@@ -1,4 +1,3 @@
-@ -0,0 +1,122 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { Text, View, StyleSheet, Dimensions, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat, Bubble, InputToolbar, Send, IMessage } from "react-native-gifted-chat";
